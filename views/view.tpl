@@ -4,7 +4,7 @@
 <script>
 
 
-WH.debug = myDebugFunction;
+
 </script>
 {/literal}
 <script> var talents =    {json_encode($talenttree)};  // FusionGen template variable </script>
@@ -131,9 +131,90 @@ WH.debug = myDebugFunction;
     
         </div>
         <div class="tab-pane fade" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
-            <!-- Content for Achievements -->
-            <div id="achievement-results"></div>
-            <p>Achievements content goes here...</p>
+         <!-- Content for Achievements -->
+ 
+        <div class="container">
+    <div class="row">
+        <!-- Vertical Nav Tabs -->
+        <div class="col-md-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-summary-tab" data-bs-toggle="pill" data-bs-target="#v-pills-summary" type="button" role="tab" aria-controls="v-pills-summary" aria-selected="true">Summary</button>
+                <button class="nav-link" id="v-pills-general-tab" data-bs-toggle="pill" data-bs-target="#v-pills-general" type="button" role="tab" aria-controls="v-pills-general" aria-selected="false">
+                General</button>
+                
+                <!-- Nested Tabs for Quest -->
+                <div class="col-md-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link collapsed" id="v-pills-quest-tab" data-bs-toggle="pill" data-bs-target="#v-pills-quest" type="button" role="tab" aria-controls="v-pills-quest" aria-selected="false">
+                        Quest
+                    </button>
+                    <div id="submenu-quest" class="collapse">
+                        <a href="#v-pills-quest-classic" class="nav-link ms-3 my-1">Classic</a>
+                        <a href="#v-pills-quest-tbc" class="nav-link ms-3 my-1">The Burning Crusade</a>
+                        <a href="#v-pills-quest-wotlk" class="nav-link ms-3 my-1">Wrath of the Lich King</a>
+                    </div>
+            
+                    <!-- Other main tabs like Exploration, PvP, Dungeons & Raids... -->
+            
+                </div>
+            </div>
+
+                <!-- Other main tabs like Exploration, PvP, Dungeons & Raids... -->
+
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="col-md-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-summary" role="tabpanel" aria-labelledby="v-pills-summary-tab">
+                <div class="container">
+    <!-- Progress Bar for Achievements -->
+    <div class="row my-3">
+        <div class="col-12">
+            <h4>Achievement Progress</h4>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="achievementProgressBar">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Responsive Data Field for Achievement Points -->
+    <div class="row my-3">
+        <div class="col-12 col-md-6">
+            <h4>Achievement Points</h4>
+            <div id="achievementPoints" class="alert alert-primary" role="alert">
+                0 Points
+            </div>
+        </div>
+    </div>
+</div>
+
+                <div id="achievement-results"></div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
+                General content...
+                <div id="general_achiev"></div>
+                </div>
+                
+                <!-- Sub-tab content for Quest, Exploration, PvP, Dungeons & Raids... -->
+
+                <div class="tab-pane fade" id="v-pills-quest" role="tabpanel" aria-labelledby="v-pills-quest-tab">
+                <!-- Content for the Quest tab -->
+                <!-- This can include text, images, or any other relevant content about Quest. -->
+                <!-- For example: -->
+                <h4>Quests</h4>
+                <p>This is where you can find information about quests in the game.</p>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+           
+           
         </div>
         <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
             <!-- Content for Inventory -->
@@ -171,10 +252,11 @@ WH.debug = myDebugFunction;
         {literal}    
     <script src="https://wow.zamimg.com/modelviewer/live/viewer/viewer.min.js"></script>
     <script type="module" src="../../../application/modules/charactertransfer/js/index.js"></script>
-    //requires cors proxy
+  
 <script type="module">
    // import {findItemsInEquipments, generateModels} from '../../../application/modules/charactertransfer/js/index.js';
     {/literal}   
+      //requires cors proxy
     // window.CONTENT_PATH = `http://192.168.1.86:2999/modelviewer/live/`
 //const character = {
   //  "race": {$main.race},
@@ -325,56 +407,65 @@ document.getElementById("talents").innerHTML += '<td>' + td1 + ' </td><td>' + td
 
              var mainName = "{$main.name}";
 
-var achievementshtml = '<div class="spacer"></div>';
-for(let i = 0; i < Math.min(20, achievements.length); i++) {
-    let achievement = achievements[i];
-      
-    let when = new Date(achievement["D"] * 1000);
-    let dateStr = when.toLocaleDateString();
+           var achievementshtml = "";
 
-    achievementshtml += '<div class="stub">';
-    achievementshtml += '<a data-wh-rename-link="true" data-wh-icon-size="small"  href="https://www.wowhead.com/wotlk/de/achievement=' + achievement["I"] + '&when=' +  achievement["D"] * 1000 + '&who=' + mainName + '">Link Text</a>';
-    achievementshtml += '<text> Earned ' +  dateStr + '</text>';
-    achievementshtml += '</div>';
-    achievementshtml += '<div class="spacer"></div>';
-}
+           achievements.forEach(achievement => {
+  const date = new Date(achievement.time * 1000);
+  const dateStr = date.toLocaleDateString(); // Formats the date into a readable string
 
-document.getElementById("achievements").innerHTML += achievementshtml;
+  let achievementshtml = '<div class="stub">';
+  achievementshtml += '<a data-wh-rename-link="true" data-wh-icon-size="small" href="https://www.wowhead.com/wotlk/de/achievement=' + achievement.id + '&when=' + achievement.time * 1000 + '&who=' + mainName + '">Link Text</a>';
+  achievementshtml += '<text> Earned ' + dateStr + '</text>';
+  achievementshtml += '</div>';
+  achievementshtml += '<div class="spacer"></div>';
+  
+  let target = ""; // Initialize target variable
+  
+  switch (achievement.category) {
+    case 92:
+      target = "general_achiev";
+      break;
+    //case 96:
+    // target = "quest_achiev";
+     // break;
+    
+    // Add more cases for other category IDs if needed
+    // case otherCategoryId:
+    //   target = "other_target_id";
+    //   break;
+
+    default:
+      // Handle cases where category doesn't match any specific ID
+      break;
+  }
+  
+  // Append achievementshtml to the specified target element
+  if (target) {
+    document.getElementById(target).innerHTML += achievementshtml;
+  }
+});
 
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    
 
-//console.log(achievements);
-console.log(achievementssumuary);
 
-// Get the element to append the HTML to
-var resultsElement = document.getElementById("achievement-results");
+    // Update the progress bar
+    var progressBar = document.getElementById('achievementProgressBar');
+    var percentDone = (achievementssumuary.AchievementCountDone / achievementssumuary.AchievementCount) * 100;
+    progressBar.style.width = percentDone + '%';
+    progressBar.setAttribute('aria-valuenow', percentDone);
+    progressBar.textContent = percentDone.toFixed(2) + '%';
 
-for (let key in achievementssumuary) {
-    if (achievementssumuary.hasOwnProperty(key)) {
-        let outerObj = achievementssumuary[key];
-        let name = outerObj.Name;
-        let count = outerObj.AchievementCount;
-        let achievementCountDone = outerObj.AchievementCountDone;
-        let progressbar = (achievementCountDone / count) * 100;
+    // Update the achievement points
+    var achievementPoints = document.getElementById('achievementPoints');
+achievementPoints.textContent = achievementssumuary.AchievementPoints + ' Points';
+});
 
-        // Create the HTML string for the outer object
-        var html = '<div class="summary-wrapper">' +
-            '<div class="summary-progress">' + name +
-                '<div class="progress-bar">' +
-                    '<div class="progress-fill" style="width:' + progressbar + '%"></div>' +
-                    '<div class="progress-text">' + achievementCountDone + ' / ' + count + '</div>' +
-                '</div>' +
-            '</div>' +
-        '</div>';
 
-        // Append the HTML string to the element
-        resultsElement.innerHTML += html;
 
-       
-        }
-    }
 
 
   {literal}
