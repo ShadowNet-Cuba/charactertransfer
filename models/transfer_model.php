@@ -553,7 +553,7 @@ public function insertTransfer($chardump)
                 $professions['main'][] = array(
                     'Current' => $skill['C'],
                     'Max' => $skill['M'],
-                    'Link' => '<a  data-wh-rename-link="true" data-wh-icon-size="medium" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
+                    'Link' => '<a  data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
                 );
             }
             elseif (isset($profsec[$skill['S']]))
@@ -561,7 +561,7 @@ public function insertTransfer($chardump)
                 $professions['secondary'][] = array(
                     'Current' => $skill['C'],
                     'Max' => $skill['M'],
-                    'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="medium" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
+                    'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
                 );
 
             }
@@ -574,7 +574,7 @@ public function insertTransfer($chardump)
                     'Name' => $skill['N'],
                     'Current' => $skill['C'],
                     'Max' => $skill['M'],
-                    'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="medium" href="https://www.wowhead.com/wotlk/de/spell=' . $other[$skill['N']] . '"></a>'
+                    'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $other[$skill['N']] . '"></a>'
                 );
             }
         }
