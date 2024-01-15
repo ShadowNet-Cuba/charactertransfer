@@ -54,12 +54,10 @@ public function getItemHTML($arrayvalue) {
     $entchandID = $arrayvalue["E"];
     
     // Construct the HTML code
-    $html = '<div  class="item-slot"> <a data-wh-icon-size="large" href="' . $url . '" rel="item='. $itemId . '&gems=' . $gems . '&ench='. $entchandID . '">';
+    $html = '<a data-wh-icon-size="large" href="' . $url . '" rel="item='. $itemId . '&gems=' . $gems . '&ench='. $entchandID . '">';
  
     $html .= '</a>';
- 
-    $html .= '</div>';
-    
+   
     return $html;
 }
 
@@ -171,7 +169,7 @@ public function getItemDisplayID($itemId){
                         break;
                 }
 
-                $this->items[$value] = "<div class='item'><img src='" . $this->template->page_url . "application/images/armory/default/" . $image . ".gif' /></div>";
+                $this->items[$value] = "<img style='width:68px;height:68px' src='" . $this->template->page_url . "application/modules/charactertransfer/img/" . $image . ".png' />";
             }
         }
          $this->charData['items'] = $this->items;
