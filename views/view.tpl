@@ -2,9 +2,7 @@
 <script>const whTooltips = {colorLinks: true, iconizeLinks: true, iconSize: true, renameLinks: false};</script>
 <script src="https://wow.zamimg.com/js/tooltips.js"></script>
 <script>
- function myDebugFunction(value) {
-  console.log(value);
-}
+
 
 WH.debug = myDebugFunction;
 </script>
@@ -173,7 +171,7 @@ WH.debug = myDebugFunction;
         {literal}    
     <script src="https://wow.zamimg.com/modelviewer/live/viewer/viewer.min.js"></script>
     <script type="module" src="../../../application/modules/charactertransfer/js/index.js"></script>
-    
+    //requires cors proxy
 <script type="module">
    // import {findItemsInEquipments, generateModels} from '../../../application/modules/charactertransfer/js/index.js';
     {/literal}   
@@ -239,7 +237,6 @@ switch (playerclassindex) {
         break;
     case 11:
         playerclass = "druid";
-        break;
         break;
     default:
         playerclass = "unknown";
