@@ -1,0 +1,38 @@
+a.item span {
+    color: inherit;
+}
+.money span {
+    color: inherit;
+}
+
+.money span.gold svg.svg-inline--fa.fa-coins path {
+    color: goldenrod ;
+}
+
+.money span.gold {
+    color: goldenrod ;
+}
+
+.money span.silver svg.svg-inline--fa.fa-coins path {
+    color: silver ;
+}
+
+.money span.silver {
+    color: silver ;
+}
+.money span.copper svg.svg-inline--fa.fa-coins path {
+    color: #b87333 ;
+}
+
+.money span.copper {
+    color: #b87333 ;
+}
+
+.content-item {
+    display: none;
+}
+
+.accordion-button::before,
+.accordion-button::after {
+    background-image: none !important;
+}
