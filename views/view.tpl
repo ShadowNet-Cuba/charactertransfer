@@ -83,13 +83,13 @@
                         <h3>Secondary Prof.</h3>
                         <div id="SecondaryProf"></div>
                         <div class="divider"></div>
-                        <div id="money"></div>
+                        <div id="money" class="money">
                         <h3>Money</h3>
                        
-                        <span><i style="color: yellow;" class="fa-solid fa-coins"></i>  {$main.money.gold}</span>
-                        <span><i style="color: silver;" class="fa-solid fa-coins"></i>  {$main.money.silver}</span>
-                        <span><i style="color: orange;" class="fa-solid fa-coins"></i>  {$main.money.copper}</span>
-                        
+                        <span class="gold"><i class="fa-solid fa-coins"></i>  {$main.money.gold}</span>
+                        <span class="silver"><i class="fa-solid fa-coins"></i>  {$main.money.silver}</span>
+                        <span class="copper"><i class="fa-solid fa-coins"></i>  {$main.money.copper}</span>
+                        </div>
                     </p>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
             
                         </div>
                     </div>
-                    <div class="col-4" style="border: 2px solid yellow;"></div>
+                    <div class="col-5" style="border: 2px solid yellow;"></div>
             
                 </div>
                 <table class="table">
@@ -133,84 +133,208 @@
         <div class="tab-pane fade" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
          <!-- Content for Achievements -->
  
-        <div class="container">
-    <div class="row">
-        <!-- Vertical Nav Tabs -->
-        <div class="col-md-3">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active" id="v-pills-summary-tab" data-bs-toggle="pill" data-bs-target="#v-pills-summary" type="button" role="tab" aria-controls="v-pills-summary" aria-selected="true">Summary</button>
-                <button class="nav-link" id="v-pills-general-tab" data-bs-toggle="pill" data-bs-target="#v-pills-general" type="button" role="tab" aria-controls="v-pills-general" aria-selected="false">
-                General</button>
+         <div class="container">
+         <div class="row">
+             <div class="col-3">
+             <div class="accordion" id="menuAccordion">
+                 <!-- Styled Buttons as Accordion Buttons -->
                 
-                <!-- Nested Tabs for Quest -->
-                <div class="col-md-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link collapsed" id="v-pills-quest-tab" data-bs-toggle="pill" data-bs-target="#v-pills-quest" type="button" role="tab" aria-controls="v-pills-quest" aria-selected="false">
-                        Quest
-                    </button>
-                    <div id="submenu-quest" class="collapse">
-                        <a href="#v-pills-quest-classic" class="nav-link ms-3 my-1">Classic</a>
-                        <a href="#v-pills-quest-tbc" class="nav-link ms-3 my-1">The Burning Crusade</a>
-                        <a href="#v-pills-quest-wotlk" class="nav-link ms-3 my-1">Wrath of the Lich King</a>
-                    </div>
-            
-                    <!-- Other main tabs like Exploration, PvP, Dungeons & Raids... -->
-            
-                </div>
-            </div>
+                 <div class="accordion-item">   
 
-                <!-- Other main tabs like Exploration, PvP, Dungeons & Raids... -->
+                 <!-- Collapsible Items -->
+                 
+                     <!-- Quests -->
+                 
+                     <h2 class="accordion-header" id="headingQuests">
+                         <button class="accordion-button custombtn collapsed" type="button" data-target="contentSummary">Summary</button>
+                         <button class="accordion-button custombtn collapsed" data-bs-toggle="collapse" type="button" data-target="contentGeneral">General</button>
+                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQuests" aria-expanded="false" aria-controls="collapseQuests" data-target="contentQuest">Quests</button>
+                       
+                             </h2>
+                         <div id="collapseQuests" class="accordion-collapse collapse" aria-labelledby="headingQuests">
+                             <div class="accordion-body">
+                                 <a href="#" class="d-block" data-target="contentQuestsClassic">Classic</a>
+                                 <a href="#" class="d-block" data-target="contentQuestsTBC">The Burning Crusade</a>
+                                 <a href="#" class="d-block" data-target="contentQuestsWotLK">Wrath of the Lich King</a>
+                             </div>
+                         </div>
+                     </div>
+     
+                     <!-- Exploration -->
+                     <div class="accordion-item">
+                         <h2 class="accordion-header" id="headingExploration">
+                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExploration" aria-expanded="false" aria-controls="collapseExploration">Exploration</button>
+                         </h2>
+                         <div id="collapseExploration" class="accordion-collapse collapse" aria-labelledby="headingExploration">
+                             <div class="accordion-body">
+                                 <a href="#" class="d-block" data-target="contentExplorationEK">Eastern Kingdoms</a>
+                                 <a href="#" class="d-block" data-target="contentExplorationKalimdor">Kalimdor</a>
+                                 <a href="#" class="d-block" data-target="contentExplorationOutland">Outland</a>
+                                 <a href="#" class="d-block" data-target="contentExplorationNorthrend">Northrend</a>
+                             </div>
+                         </div>
+                     </div>
 
-            </div>
-        </div>
+                                   <!-- PVP -->
+                                   <div class="accordion-item">
+                                   <h2 class="accordion-header" id="headingPlayervsPlayer">
+                                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlayervsPlayer" aria-expanded="false" aria-controls="collapsePlayervsPlayer">Player vs Player</button>
+                                   </h2>
+                                   <div id="collapsePlayervsPlayer" class="accordion-collapse collapse" aria-labelledby="headingPlayervsPlayer">
+                                       <div class="accordion-body">
+                                        <a href="#" class="d-block" data-target="contentpvpAlteracValley">Alterac Valley</a>
+                                        <a href="#" class="d-block" data-target="contentpvpArathiBasin">Arathi Basin</a>
+                                        <a href="#" class="d-block" data-target="contentpvpEyeoftheStorm">Eye of the Storm</a>                 
+                                        <a href="#" class="d-block" data-target="contentpvpWarsongGulch">Warsong Gulch</a>
+                                        <a href="#" class="d-block" data-target="contentpvpWintergrasp">Wintergrasp</a>
+                                        <a href="#" class="d-block" data-target="contentpvpIsleofConquest">Isle of Conquest</a>
+                                        <a href="#" class="d-block" data-target="contentpvpStrandoftheAncients">Strand of the Ancients</a>
+                                       </div>
+                                   </div>
+                               </div>
 
-        <!-- Tab Content -->
-        <div class="col-md-9">
-            <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-summary" role="tabpanel" aria-labelledby="v-pills-summary-tab">
-                <div class="container">
-    <!-- Progress Bar for Achievements -->
-    <div class="row my-3">
-        <div class="col-12">
-            <h4>Achievement Progress</h4>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="achievementProgressBar">0%</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Data Field for Achievement Points -->
-    <div class="row my-3">
-        <div class="col-12 col-md-6">
-            <h4>Achievement Points</h4>
-            <div id="achievementPoints" class="alert alert-primary" role="alert">
-                0 Points
-            </div>
-        </div>
-    </div>
-</div>
-
-                <div id="achievement-results"></div>
-                </div>
-                <div class="tab-pane fade" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
-                General content...
-                <div id="general_achiev"></div>
-                </div>
+                                       <!-- Dungeon and Raids -->
+                                       <div class="accordion-item">
+                                       <h2 class="accordion-header" id="headingDungeonAndRaids">
+                                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDungeonAndRaids" aria-expanded="false" aria-controls="collapseDungeonAndRaids">Dungeons and Raids</button>
+                                       </h2>
+                                       <div id="collapseDungeonAndRaids" class="accordion-collapse collapse" aria-labelledby="headingDungeonAndRaids">
+                                           <div class="accordion-body">
+                                           <a href="#" class="d-block" data-target="contentdarclassic">Classic</a>    
+                                           <a href="#" class="d-block" data-target="contentdarburning-crusade">The Burning Crusade</a>
+                                           <a href="#" class="d-block" data-target="contentdarlich-king-dungeon">Lich King Dungeon</a>
+                                           <a href="#" class="d-block" data-target="contentdarlich-king-heroic">Lich King Heroic</a>
+                                           <a href="#" class="d-block" data-target="contentdarlich-king-10-raid">Lich King 10-Player Raid</a>
+                                           <a href="#" class="d-block" data-target="contentdarlich-king-25-raid">Lich King 25-Player Raid</a>
+                                           <a href="#" class="d-block" data-target="contentdarulduar-10">Secrets of Ulduar 10</a>
+                                           <a href="#" class="d-block" data-target="contentdarulduar-25">Secrets of Ulduar 25</a>
+                                           <a href="#" class="d-block" data-target="contentdarcrusade-10">Call of the Crusade 10</a>
+                                           <a href="#" class="d-block" data-target="contentdarcrusade-25">Call of the Crusade 25</a>
+                                           <a href="#" class="d-block" data-target="contentdarlich-king-10">Fall of the Lich King 10</a>
+                                           <a href="#" class="d-block" data-target="contentdarlich-king-25">Fall of the Lich King 25</a>
+                                           
+                                            
+                                        
+    
+                                           </div>
+                                       </div>
+                                   </div>
+     
+                     <!-- Additional collapsible categories... -->
+     
+                 </div>
+             </div>
+     
+             <div id="AchievementContent" class="col-9">
+                 <!-- Content Divs -->
+                 <div id="contentSummary"  data-category="summary" class="content-item">Content for Summary</div>
+                 <div id="contentGeneral"  data-category="92" class="content-item">Content for General</div>
+                 <div id="contentQuest"    data-category="96"  class="content-item">Content for content Quest</div>
+                <!-- Content Quest SUbs -->
+                 <div id="contentQuestsClassic"  data-category="14861" class="content-item">Content for Quests - Classic</div>
+                 <div id="contentQuestsTBC"      data-category="14862" class="content-item">Content for Quests - TBC</div>
+                 <div id="contentQuestsWotLK"    data-category="14863" class="content-item">Content for Quests - WOTLK</div>
                 
-                <!-- Sub-tab content for Quest, Exploration, PvP, Dungeons & Raids... -->
+                  <!-- Content Exploration -->
+                    <div id="contentExplorationEK"      data-category="14777" class="content-item">Content for Exploration - Eastern Kingdoms</div>
+                    <div id="contentExplorationKalimdor"      data-category="14778" class="content-item">Content for Exploration - Kalimdor</div>
+                    <div id="contentExplorationOutland"      data-category="14779" class="content-item">Content for Exploration - Outland</div>
+                    <div id="contentExplorationNorthrend"      data-category="14780" class="content-item">Content for Exploration - Northrend</div> 
+                     <!-- Content PVP -->
+                    <div id="contentpvpAlteracValley"      data-category="14801" class="content-item">Content for Player vs Player -  Alterac Valley</div>
+                    <div id="contentpvpArathiBasin"      data-category="14802" class="content-item">Content for Player vs Player -  Arathi Basin</div>
+                    <div id="contentpvpEyeoftheStorm"      data-category="14803" class="content-item">Content for Player vs Player -  Eye of the Storm</div>
+                    <div id="contentpvpWarsongGulch"      data-category="14804" class="content-item">Content for Player vs Player -  Warsong Gulch</div>
+                    <div id="contentpvpWintergrasp"      data-category="14901" class="content-item">Content for Player vs Player -  Wintergrasp</div>
+                    <div id="contentpvpIsleofConquest"      data-category="15003" class="content-item">Content for Player vs Player -  Isle of Conquest</div>
 
-                <div class="tab-pane fade" id="v-pills-quest" role="tabpanel" aria-labelledby="v-pills-quest-tab">
-                <!-- Content for the Quest tab -->
-                <!-- This can include text, images, or any other relevant content about Quest. -->
-                <!-- For example: -->
-                <h4>Quests</h4>
-                <p>This is where you can find information about quests in the game.</p>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
+                    <!-- Content Dungeon and Raids -->
+                    <div id="contentdarclassic" data-category="14808" class="content-item">Content for Dungeon and Raids - Classic</div>
+                    <div id="contentdarburning-crusade" data-category="14805" class="content-item">Content for Dungeon and Raids - The Burning Crusade</div>
+                    <div id="contentdarlich-king-dungeon" data-category="14806" class="content-item">Content for Dungeon and Raids - Lich King Dungeon</div>
+                    <div id="contentdarlich-king-heroic" data-category="14921" class="content-item">Content for Dungeon and Raids - Lich King Heroic</div>
+                    <div id="contentdarlich-king-10-raid" data-category="14922" class="content-item">Content for Dungeon and Raids - Lich King 10-Player Raid</div>
+                    <div id="contentdarlich-king-25-raid" data-category="14923" class="content-item">Content for Dungeon and Raids - Lich King 25-Player Raid</div>
+                    <div id="contentdarulduar-10" data-category="14961" class="content-item">Content for Dungeon and Raids - Secrets of Ulduar 10</div>
+                    <div id="contentdarulduar-25" data-category="14962" class="content-item">Content for Dungeon and Raids - Secrets of Ulduar 25</div>
+                    <div id="contentdarcrusade-10" data-category="15001" class="content-item">Content for Dungeon and Raids - Call of the Crusade 10</div>
+                    <div id="contentdarcrusade-25" data-category="15002" class="content-item">Content for Dungeon and Raids - Call of the Crusade 25</div>
+                    <div id="contentdarlich-king-10" data-category="15041" class="content-item">Content for Dungeon and Raids - Fall of the Lich King 10</div>
+                    <div id="contentdarlich-king-25" data-category="15042" class="content-item">Content for Dungeon and Raids - Fall of the Lich King 25</div>
+                    
+            
 
+                    
+
+
+             </div>
+         </div>
+     </div>
+     
+        
+     
+
+     
+     <script>
+// Get all div elements within AchievementContent with a data-category attribute
+let divs = document.querySelectorAll('#AchievementContent div[data-category]');
+
+var userLang = navigator.language || navigator.userLanguage; 
+
+divs.forEach(div => {
+    // Get the category id from the data-category attribute
+    let categoryId = div.getAttribute('data-category');
+
+    // Get all achievements with the category id
+    let achievementsWithCategory = achievements.filter(achievement => 
+    achievement.category === Number(categoryId) && achievement.completed === 1
+);
+    // Sort the achievements by time    
+    achievementsWithCategory.sort((a, b) => b.points - a.points);
+    let contentHTMLtable = '<div class="table-responsive"><table class="table"><thead><tr><th>Name</th><th>Points</th><th>Time</th></tr></thead><tbody>';
+
+achievementsWithCategory.forEach(achievement => {
+    console.log('achievement', achievement);
+    const date = new Date(achievement.time * 1000);
+    const dateStr = date.toLocaleDateString(); // Formats the date into a readable string
+
+    contentHTMLtable += '<tr><td><a data-wh-rename-link="true" href="https://www.wowhead.com/wotlk/' + userLang + '/achievement=' + achievement.id + '"  "></a></td><td>' + achievement.points + '</td><td> ' + dateStr + '</td></tr>';
+});
+
+contentHTMLtable += '</tbody></table></div>';
+
+div.innerHTML = contentHTMLtable;
+
+});
+
+    const wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true, "hide": { "droppedby": true, "dropchance": true }     };
+     document.querySelectorAll('.col-3 a, .accordion-body a, button[data-target]').forEach(item => {
+         item.addEventListener('click', function(e) {
+             e.preventDefault();
+     
+             // Hide all content items
+             document.querySelectorAll('.content-item').forEach(content => {
+                 content.style.display = 'none';
+             });
+     
+             // Get the target content ID
+             const targetId = this.getAttribute('data-target');
+
+        
+             // Show the corresponding content item
+             const contentToShow = document.getElementById(targetId);
+             if (contentToShow) {
+                 // Clear previous content
+                 
+                 contentToShow.style.display = 'block';
+     
+             }
+         });
+     });
+     </script>
+     
+
+</script>
 
 
            
@@ -325,8 +449,6 @@ switch (playerclassindex) {
         break;
 }
 
-console.log("Player class: " + playerclass);
-
     //add currencys
     currency.forEach(function(item) {
     // Generate the HTML for each currency
@@ -409,7 +531,7 @@ document.getElementById("talents").innerHTML += '<td>' + td1 + ' </td><td>' + td
 
            var achievementshtml = "";
 
-           achievements.forEach(achievement => {
+  achievements.forEach(achievement => {
   const date = new Date(achievement.time * 1000);
   const dateStr = date.toLocaleDateString(); // Formats the date into a readable string
 
