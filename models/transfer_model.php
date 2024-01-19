@@ -454,35 +454,8 @@ public function insertTransfer($chardump)
 
     $chardata["equipmentCache"] = trim($equipmentCache); // Removes trailing space
     
-
-    $achievements = $original["achiev"];
-
-    $AchievementCountDone = 0;
-    $AchievementCount = count($original["achiev"]);
-    $AchievementPoints = 0;
-    foreach ($original["achiev"] as $achievement)
-    {
-
-        if ($achievement["completed"] == "1")
-        {
-            $AchievementCountDone = $AchievementCountDone + 1;
-            $AchievementPoints = $AchievementPoints + $achievement["points"];
-        }
-    }
-    $achievementssumuary = array(
-        "AchievementCount" => $AchievementCount,
-        "AchievementCountDone" => $AchievementCountDone,
-        "AchievementPoints" => $AchievementPoints
-    );
-
-    usort($achievements, function ($a, $b)
-    {
-        return $b['id'] <=> $a['id'];
-    });
-
-    $chardata["achievements"] = $achievements;
-    $chardata["achievementssumuary"] = $achievementssumuary;
-
+    $chardata["achievements"] = $original["achiev"];
+   
     $currency = array();
 
     foreach ($original["currency"] as $item)
