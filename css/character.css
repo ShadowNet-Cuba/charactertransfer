@@ -4,6 +4,10 @@ a.item span {
 .money span {
     color: inherit;
 }
+ table.table tbody tr td a.icontinyl span,
+a.icontinyl span {
+    color: #ecc102;
+}
 
 .money span.gold svg.svg-inline--fa.fa-coins path {
     color: goldenrod ;
@@ -35,4 +39,8 @@ a.item span {
 .accordion-button::before,
 .accordion-button::after {
     background-image: none !important;
+}
+
+div.progress-bar{
+ color: white;
 }
