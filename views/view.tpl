@@ -117,12 +117,9 @@
                             <!-- Styled Buttons as Accordion Buttons -->
 
                             <div class="accordion-item">
-                                <!-- Collapsible Items -->
-
-                                <!-- Quests -->
-                            
+                       
                                 <h2 class="accordion-header" id="headingQuests">
-                  
+
                                     <button class="accordion-button custombtn collapsed " type="button" data-target="contentSummary">Summary</button>
                                     <button class="accordion-button custombtn collapsed" data-bs-toggle="collapse" type="button" data-target="contentGeneral">General</button>
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQuests" aria-expanded="false" aria-controls="collapseQuests" data-target="contentQuest">
@@ -196,19 +193,83 @@
                                         <a href="#" class="d-block" data-target="contentdarlich-king-25">Fall of the Lich King 25</a>
                                     </div>
                                 </div>
-                   
 
-                            <!--- Feats of Strength-->
+                            </div>
 
-                            <h2 class="accordion-header" id="headingFeatsofStrength">
-                  
-                            <button class="accordion-button custombtn collapsed " type="button" data-target="contenFeatsofStrength">Feats of Strength</button>
-                       
-                        </h2>
+                            <!-- Professions -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingProfessions">
+                                    <button class="accordion-button collapsed" data-target="contentprofessions" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProfessions" aria-expanded="false" aria-controls="collapseProfessions">
+                                        Professions
+                                    </button>
+                                </h2>
+                                <div id="collapseProfessions" class="accordion-collapse collapse" aria-labelledby="headingProfessions">
+                                    <div class="accordion-body">
+                                        <a href="#" class="d-block" data-target="contentprofessionscooking">Cooking</a>
+                                        <a href="#" class="d-block" data-target="contentprofessionsfishing">Fishing</a>
+                                        <a href="#" class="d-block" data-target="contentprofessionsfirstaid">First Aid</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Reputation -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingReputation">
+                                    <button class="accordion-button collapsed" data-target="contentReputation" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReputation" aria-expanded="false" aria-controls="collapseReputation">
+                                        Reputation
+                                    </button>
+                                </h2>
+                                <div id="collapseReputation" class="accordion-collapse collapse" aria-labelledby="headingReputation">
+                                    <div class="accordion-body">
+                                        <a href="#" class="d-block" data-target="contentReputationclassic">Classic</a>
+                                        <a href="#" class="d-block" data-target="contentReputationtbc">The Burning Crusade</a>
+                                        <a href="#" class="d-block" data-target="contentReputationwotlk">Wrath of the Lich King</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- World Events -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingWorldEvents">
+                                    <button class="accordion-button collapsed" data-target="contentWorldEvents" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWorldEvents" aria-expanded="false" aria-controls="collapseWorldEvents">
+                                        World Events
+                                    </button>
+                                </h2>
+                                <div id="collapseWorldEvents" class="accordion-collapse collapse" aria-labelledby="headingWorldEvents">
+                                    <div class="accordion-body">
+                                        <a href="#" class="d-block" data-target="contentWorldEventslunar-festival">Lunar Festival</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventsmidsummer-fire-festival">Midsummer Fire Festival</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventsbrewfest">Brewfest</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventshallow-end">Hallow End</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventsharvest-festival">Harvest Festival</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventswinter-veil">Winter Veil</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventsmidsummer-fire-festival">Midsummer Fire Festival</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventsthe-darkmoon-faire">The Darkmoon Faire</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventschildrensweek">Children's Week</a>
+                                        <a href="#" class="d-block" data-target="contentWorldEventsnobelgarden">Noblegarden</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feats of Strength -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFeatsofStrength">
+                                    <button class="accordion-button collapsed"  data-target="contentFeatsofStrength" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFeatsofStrength" aria-expanded="false" aria-controls="collapseFeatsofStrength">
+                                        Feats of Strength
+                                    </button>
+                                </h2>
+                                
+                            </div>
+
                             <!-- Additional collapsible categories... -->
+                                
+         
                             </div>
                         </div>
-                    </div>
+                   
 
                     <div id="AchievementContent" class="col-9">
                         <!-- Content Divs -->
@@ -222,7 +283,7 @@
                                     <div class="col-4">
                                         <label for="progressGeneral">Allgemein</label>
                                         <div class="progress" id="progressGeneral">
-                                           <div class="progress-bar" data-cat="92" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                            <div class="progress-bar" data-cat="92" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -234,53 +295,55 @@
                                     <div class="col-4">
                                         <label for="progressprof">Berufe</label>
                                         <div class="progress" id="progressprof">
-                                            <div class="progress-bar"  data-cat="169"  role="progressbar" style="width: 0%;" aria-valuenow="54" aria-valuemin="0" aria-valuemax="0"></div>
+                                            <div class="progress-bar" data-cat="169" role="progressbar" style="width: 0%;" aria-valuenow="54" aria-valuemin="0" aria-valuemax="0"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-    <div class="col-4">
-        <label for="progressPvP">Spieler gegen Spieler</label>
-        <div class="progress" id="progressPvP">
-            <div class="progress-bar"  data-cat="95" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-        </div>
-    </div>
-    <div class="col-4">
-        <label for="progressQuests">Quests</label>
-        <div class="progress" id="progressQuests">
-            <div class="progress-bar"  data-cat="96"  role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-        </div>
-    </div>
-    <div class="col-4">
-        <label for="progressReputation">Ruf</label>
-        <div class="progress" id="progressReputation">
-            <div class="progress-bar"  data-cat="201"  role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-4">
-        <label for="progressWorldEvents">Weltereignisse</label>
-        <div class="progress" id="progressWorldEvents">
-            <div class="progress-bar"  data-cat="155"  role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax=""></div>
-        </div>
-    </div>
-    <div class="col-4">
-        <label for="progressDungeonRaids">Dungeon & Schlachtzug</label>
-        <div class="progress" id="progressDungeonRaids">
-            <div class="progress-bar"  data-cat="168"  role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-        </div>
-    </div>
-    <div class="col-4">
-        <label for="progressHeroicActs">Heldentaten</label>
-        <div class="progress" id="progressHeroicActs">
-            <div class="progress-bar"  data-cat="81" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-        </div>
-    </div>
-</div>
+                                    <div class="col-4">
+                                        <label for="progressPvP">Spieler gegen Spieler</label>
+                                        <div class="progress" id="progressPvP">
+                                            <div class="progress-bar" data-cat="95" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="progressQuests">Quests</label>
+                                        <div class="progress" id="progressQuests">
+                                            <div class="progress-bar" data-cat="96" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="progressReputation">Ruf</label>
+                                        <div class="progress" id="progressReputation">
+                                            <div class="progress-bar" data-cat="201" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label for="progressWorldEvents">Weltereignisse</label>
+                                        <div class="progress" id="progressWorldEvents">
+                                            <div class="progress-bar" data-cat="155" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax=""></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="progressDungeonRaids">Dungeon & Schlachtzug</label>
+                                        <div class="progress" id="progressDungeonRaids">
+                                            <div class="progress-bar" data-cat="168" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="progressHeroicActs">Heldentaten</label>
+                                        <div class="progress" id="progressHeroicActs">
+                                            <div class="progress-bar" data-cat="81" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- Content General -->
                         <div id="contentGeneral" data-category="92" class="content-item">Content for General</div>
+                        <!-- Content Quest -->
                         <div id="contentQuest" data-category="96" class="content-item">Content for content Quest</div>
                         <!-- Content Quest SUbs -->
                         <div id="contentQuestsClassic" data-category="14861" class="content-item">Content for Quests - Classic</div>
@@ -314,57 +377,82 @@
                         <div id="contentdarlich-king-10" data-category="15041" class="content-item">Content for Dungeon and Raids - Fall of the Lich King 10</div>
                         <div id="contentdarlich-king-25" data-category="15042" class="content-item">Content for Dungeon and Raids - Fall of the Lich King 25</div>
 
+                        <!-- Content Professions -->
+                        <div id="contentprofessions" data-category="169" class="content-item">Content for Professions</div>
+                        <div id="contentprofessionscooking" data-category="170" class="content-item">Content for Cooking</div>
+                        <div id="contentprofessionsfishing" data-category="171" class="content-item">Content for Fishing</div>
+                        <div id="contentprofessionsfirstaid" data-category="172" class="content-item">Content for First Aid</div>
+
+
+                        <!-- Content Reputation -->
+                        <div id="contentReputation" data-category="201" class="content-item">Content for Reputation</div>
+                        <div id="contentReputationclassic" data-category="14864" class="content-item">Content for Reputation - classic</div>
+                        <div id="contentReputationtbc" data-category="14865" class="content-item">Content for Reputation - tbc</div>
+                        <div id="contentReputationwotlk" data-category="14866" class="content-item">Content for Reputation - wotlk</div>
+
+
+
+
+                        <!-- Content World Events -->
+                        <div id="contentWorldEvents" data-category="155" class="content-item">Content for World Events</div>
+                        <div id="contentWorldEventslunar-festival" data-category="160" class="content-item">Content for World Events - Lunar Festival</div>
+                        <div id="contentWorldEventsmidsummer-fire-festival" data-category="187" class="content-item">Content for World Events - Midsummer Fire Festival</div>
+                        <div id="contentWorldEventsbrewfest" data-category="159" class="content-item">Content for World Events - Brewfest</div>
+                        <div id="contentWorldEventshallow-end" data-category="163" class="content-item">Content for World Events - Hallow End</div>
+                        <div id="contentWorldEventsharvest-festival" data-category="161" class="content-item">Content for World Events - Harvest Festival</div>
+                        <div id="contentWorldEventswinter-veil" data-category="162" class="content-item">Content for World Events - Winter Veil</div>
+                        <div id="contentWorldEventsmidsummer-fire-festival" data-category="158" class="content-item">Content for World Events - Midsummer Fire Festival</div>
+                        <div id="contentWorldEventsthe-darkmoon-faire" data-category="14981" class="content-item">Content for World Events - The Darkmoon Faire</div>
+                        <div id="contentWorldEventschildrensweeks" data-category="156" class="content-item">Content for World Events - Children's Week</div>
+                        <div id="contentWorldEventsnobelgarden" data-category="14941" class="content-item">Content for World Events - Noblegarden</div>
+
+
                         <!-- Content Feats of Strength -->
-                        <div id="contenFeatsofStrength" data-category="81" class="content-item">Content for Feats of Strength</div>
+                        <div id="contentFeatsofStrength" data-category="81" class="content-item">Content for Feats of Strength</div>
                     </div>
                 </div>
             </div>
 
             <script>
+                let categoryCounts = achievements.reduce((acc, achievement) => {
+                        // Fügt die kategorien zusammen für die zusammenfassung und progressbars
+                        let category = [14861, 14862, 14863].includes(achievement.category) ? 96 : [165, 14801, 14802, 14803, 14804, 14881, 14901, 15003].includes(achievement.category) ? 95 : [14777, 14778, 14779, 14780].includes(
+                                achievement.category) ? 97 : [14808, 14805, 14806, 14921, 14922, 14923, 14961, 14962, 15001, 15002, 15041, 15042].includes(achievement.category) ? 168 : [170, 171, 172].includes(achievement.category) ?
+                            169 : [14864, 14865, 14866].includes(achievement.category) ? 201 : [160, 187, 159, 163, 161, 162, 158, 14981, 156, 14941].includes(achievement.category) ? 155 :
+                            achievement.category;
 
-    let categoryCounts = achievements.reduce((acc, achievement) => {
-        // Fügt die kategorien zusammen für die zusammenfassung und progressbars
-        let category = [14861, 14862, 14863].includes(achievement.category) ? 96 : 
-                       [165, 14801, 14802, 14803, 14804, 14881, 14901, 15003].includes(achievement.category) ? 95 : 
-                       [14777,14778,14779,14780].includes(achievement.category) ? 97 : 
-                       [14808,14805,14806,14921,14922,14923,14961,14962,15001,15002,15041,15042].includes(achievement.category) ? 168 :
-                       [170,171,172].includes(achievement.category) ? 169 :
-                       [14864,14865,14866].includes(achievement.category) ? 201 :
-                       [160,187,159,163,161,162,158,14981,156,14941].includes(achievement.category) ? 155 :
-                       achievement.category;
+                        // Wenn die Kategorie noch nicht im Akkumulator ist, fügen Sie sie hinzu
+                        if (!acc[category]) {
+                            acc[category] = { total: 0, completed: 0 };
+                        }
 
-        // Wenn die Kategorie noch nicht im Akkumulator ist, fügen Sie sie hinzu
-        if (!acc[category]) {
-            acc[category] = { total: 0, completed: 0 };
-        }
+                        // Erhöhen Sie die Gesamtzahl der Errungenschaften in der Kategorie
+                        acc[category].total++;
 
-        // Erhöhen Sie die Gesamtzahl der Errungenschaften in der Kategorie
-        acc[category].total++;
+                        // Wenn die Errungenschaft abgeschlossen ist, erhöhen Sie die Anzahl der abgeschlossenen Errungenschaften in der Kategorie
+                        if (achievement.completed === 1) {
+                            acc[category].completed++;
+                        }
 
-        // Wenn die Errungenschaft abgeschlossen ist, erhöhen Sie die Anzahl der abgeschlossenen Errungenschaften in der Kategorie
-        if (achievement.completed === 1) {
-            acc[category].completed++;
-        }
+                        return acc;
+                    },
 
-        return acc;
-    }, 
-    
-    {});
+                    {});
 
-    $('#contentSummary .progress-bar').each(function() {
-        // Holen Sie sich die Kategorie der Fortschrittsleiste
-        let category = $(this).data('cat');
+                $('#contentSummary .progress-bar').each(function() {
+                    // Holen Sie sich die Kategorie der Fortschrittsleiste
+                    let category = $(this).data('cat');
 
-        // Wenn die Kategorie in categoryCounts ist
-        if (categoryCounts[category]) {
-            // Berechnen Sie den Fortschritt für die Kategorie
-            let progress = (categoryCounts[category].completed / categoryCounts[category].total) * 100;
+                    // Wenn die Kategorie in categoryCounts ist
+                    if (categoryCounts[category]) {
+                        // Berechnen Sie den Fortschritt für die Kategorie
+                        let progress = (categoryCounts[category].completed / categoryCounts[category].total) * 100;
 
-            // Aktualisieren Sie die Breite und das aria-valuenow-Attribut der Fortschrittsleiste
-            $(this).css('width', progress + '%').attr('aria-valuenow', progress);
-            $(this).text(categoryCounts[category].completed + ' / ' + categoryCounts[category].total);
-        }
-    });
+                        // Aktualisieren Sie die Breite und das aria-valuenow-Attribut der Fortschrittsleiste
+                        $(this).css('width', progress + '%').attr('aria-valuenow', progress);
+                        $(this).text(categoryCounts[category].completed + ' / ' + categoryCounts[category].total);
+                    }
+                });
 
 
 
@@ -454,11 +542,11 @@
                     </script>
 
                     {literal}
-                        <script src="https://wow.zamimg.com/modelviewer/live/viewer/viewer.min.js"></script>
-                        <script type="module" src="../../../application/modules/charactertransfer/js/index.js"></script>
+                    <script src="https://wow.zamimg.com/modelviewer/live/viewer/viewer.min.js"></script>
+                    <script type="module" src="../../../application/modules/charactertransfer/js/index.js"></script>
 
-                        <script type="module">
-                            // import {findItemsInEquipments, generateModels} from '../../../application/modules/charactertransfer/js/index.js';
+                    <script type="module">
+                        // import {findItemsInEquipments, generateModels} from '../../../application/modules/charactertransfer/js/index.js';
                         {/literal}
                         //requires cors proxy
                         // window.CONTENT_PATH = `http://192.168.1.86:2999/modelviewer/live/`
@@ -551,7 +639,7 @@
 
                         professions.other.forEach(function(item) {
                             // Generate the HTML for each profession
-                            var html = '<div class="stub">' + item.Link + ' ' + item.Current + ' / ' + item.Max + '</div>' ; 
+                            var html = '<div class="stub">' + item.Link + ' ' + item.Current + ' / ' + item.Max + '</div>';
                             document.getElementById("SecondaryProf").innerHTML += html;
                         });
 
@@ -584,7 +672,7 @@
 
                         document.getElementById("talents").innerHTML += '<td>' + td1 + ' </td><td>' + td2 + ' </td>';
 
-                       
+
 
                         document.addEventListener('DOMContentLoaded', function() {
 
@@ -625,10 +713,8 @@
                                 tableBody.appendChild(rowObj.row);
                             });
 
-                           
-                            });
 
-                  
+                        });
                     </script>
 
                     <!-- Characters Attributes.End -->
