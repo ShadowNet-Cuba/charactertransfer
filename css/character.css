@@ -41,6 +41,22 @@ a.icontinyl span {
     background-image: none !important;
 }
 
-div.progress-bar{
+.progress-bar{
  color: white;
+ background-color: #157099;
 }
+.progress {
+    background-color: black;
+}
+
+.progress small {
+    color: white;
+}
+
+.white-text {
+    color: white;
+}
+
+ td {
+text-align: center;
+ }

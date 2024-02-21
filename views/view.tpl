@@ -38,14 +38,83 @@
             <!-- Content for Character -->
             <div class="container">
                 <div class="row">
-                    <div class="col-1" style="border: 2px solid pink;">
-                        {$items.head} {$items.neck} {$items.shoulders} {$items.back} {$items.chest} {$items.body} {$items.tabard} {$items.wrists}
+                    <div class="col-2" style="border: 2px solid pink;">
+                    
+                <table>
+                    <tr>
+                        <td><input type="checkbox" id="checkhead"></td>
+                        <td>{$items.head}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checkneck"></td>
+                        <td>{$items.neck}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checkshoulder"></td>
+                        <td>{$items.shoulders}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checkback"></td>
+                        <td>{$items.back}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checkchest"></td>
+                        <td>{$items.chest}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checksbody"></td>
+                        <td>{$items.body}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checktabard"></td>
+                        <td>{$items.tabard}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="checkwrists"></td>
+                        <td>{$items.wrists}</td>
+                    </tr>
+                </table>
+                  
+                       
                     </div>
-                    <div class="col-6" style="border: 2px solid red;">
+                    <div class="col-4" style="border: 2px solid red;">
                         <div id="model_3d" class="model" style="display: block; height: 625px; position: relative;"></div>
                     </div>
-                    <div class="col-1" style="border: 2px solid blue;">
-                        {$items.hands} {$items.waist} {$items.legs} {$items.feet} {$items.finger1} {$items.finger2} {$items.trinket1} {$items.trinket2}
+                    <div class="col-2" style="border: 2px solid blue;">
+                        <table>
+                            <tr>
+                                <td><input type="checkbox" id="checkhands"></td>
+                                <td>{$items.hands}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checkwaist"></td>
+                                <td>{$items.waist}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checklegs"></td>
+                                <td>{$items.legs}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checkfeet"></td>
+                                <td>{$items.feet}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checkfinger1"></td>
+                                <td>{$items.finger1}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checkfinger2"></td>
+                                <td>{$items.finger2}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checktrinket1"></td>
+                                <td>{$items.trinket1}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="checktrinket2"></td>
+                                <td>{$items.trinket2}</td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-4" style="border: 2px solid yellow;">
                         <h3>Talent Specialization</h3>
@@ -138,7 +207,7 @@
                             <!-- Exploration -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingExploration">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExploration" aria-expanded="false" aria-controls="collapseExploration">Exploration</button>
+                                    <button class="accordion-button collapsed" type="button" data-target="contentExploration" data-bs-toggle="collapse" data-bs-target="#collapseExploration" aria-expanded="false" aria-controls="collapseExploration">Exploration</button>
                                 </h2>
                                 <div id="collapseExploration" class="accordion-collapse collapse" aria-labelledby="headingExploration">
                                     <div class="accordion-body">
@@ -153,9 +222,7 @@
                             <!-- PVP -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingPlayervsPlayer">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlayervsPlayer" aria-expanded="false" aria-controls="collapsePlayervsPlayer">
-                                        Player vs Player
-                                    </button>
+                                  <button class="accordion-button collapsed" type="button" data-target="contentpvp" data-bs-toggle="collapse" data-bs-target="#collapsePlayervsPlayer" aria-expanded="false" aria-controls="collapsePlayervsPlayer">Player vs Player</button>
                                 </h2>
                                 <div id="collapsePlayervsPlayer" class="accordion-collapse collapse" aria-labelledby="headingPlayervsPlayer">
                                     <div class="accordion-body">
@@ -173,8 +240,8 @@
                             <!-- Dungeon and Raids -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingDungeonAndRaids">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDungeonAndRaids" aria-expanded="false" aria-controls="collapseDungeonAndRaids">
-                                        Dungeons and Raids
+                                   <button class="accordion-button collapsed" data-target="contentdar" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDungeonAndRaids" aria-expanded="false" aria-controls="collapseDungeonAndRaids">
+                                        Dungeon & Raids
                                     </button>
                                 </h2>
                                 <div id="collapseDungeonAndRaids" class="accordion-collapse collapse" aria-labelledby="headingDungeonAndRaids">
@@ -275,68 +342,79 @@
                         <!-- Content Divs -->
                         <div id="contentSummary" class="content-item">
                             <div class="container">
-                                <label for="progressOverall">Gesamter Fortschritt</label>
-                                <div class="progress" id="progressOverall">
-                                    <div class="progress-bar" data-cat="overall" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <label for="progressGeneral">Allgemein</label>
-                                        <div class="progress" id="progressGeneral">
-                                            <div class="progress-bar" data-cat="92" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                            <label class="white-text" for="progressOverall">Gesamter Fortschritt</label>
+                            <div class="progress position-relative" id="progressOverall">
+                                <div class="progress-bar" data-cat="overall" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                <small class="justify-content-center d-flex position-absolute w-100"></small>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label class="white-text" for="progressGeneral">Allgemein</label>
+                                    <div class="progress position-relative" id="progressGeneral">
+                                        <div class="progress-bar" data-cat="92" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                        <small class="justify-content-center d-flex position-absolute w-100"></small>
                                     </div>
+                                </div>
                                     <div class="col-4">
-                                        <label for="progressexploration">Erkundung</label>
-                                        <div class="progress" id="progressexploration">
+                                        <label  class="white-text" for="progressexploration">Erkundung</label>
+                                        <div class="progress position-relative" id="pprogressexploration">
                                             <div class="progress-bar" data-cat="97" role="progressbar" style="width: 0%;" aria-valuenow="54" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                     <div class="col-4">
-                                        <label for="progressprof">Berufe</label>
-                                        <div class="progress" id="progressprof">
+                                        <label  class="white-text" for="progressprof">Berufe</label>
+                                        <div class="progress position-relative" id="pprogressprof">
                                             <div class="progress-bar" data-cat="169" role="progressbar" style="width: 0%;" aria-valuenow="54" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <label for="progressPvP">Spieler gegen Spieler</label>
-                                        <div class="progress" id="progressPvP">
+                                        <label  class="white-text" for="progressPvP">Spieler gegen Spieler</label>
+                                        <div class="progress position-relative" id="pprogressPvP">
                                             <div class="progress-bar" data-cat="95" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                     <div class="col-4">
-                                        <label for="progressQuests">Quests</label>
-                                        <div class="progress" id="progressQuests">
+                                        <label  class="white-text" for="progressQuests">Quests</label>
+                                        <div class="progress position-relative" id="pprogressQuests">
                                             <div class="progress-bar" data-cat="96" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                     <div class="col-4">
-                                        <label for="progressReputation">Ruf</label>
-                                        <div class="progress" id="progressReputation">
+                                        <label  class="white-text" for="progressReputation">Ruf</label>
+                                        <div class="progress position-relative" id="pprogressReputation">
                                             <div class="progress-bar" data-cat="201" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <label for="progressWorldEvents">Weltereignisse</label>
-                                        <div class="progress" id="progressWorldEvents">
+                                        <label  class="white-text" for="progressWorldEvents">Weltereignisse</label>
+                                        <div class="progress position-relative" id="pprogressWorldEvents">
                                             <div class="progress-bar" data-cat="155" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax=""></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                     <div class="col-4">
-                                        <label for="progressDungeonRaids">Dungeon & Schlachtzug</label>
-                                        <div class="progress" id="progressDungeonRaids">
-                                            <div class="progress-bar" data-cat="168" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                        <label  class="white-text" for="progressDungeonRaids">Dungeon & Schlachtzug</label>
+                                        <div class="progress position-relative" id="pprogressDungeonRaids">
+                                        
+                                       <div class="progress-bar" data-cat="168" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                                       <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                       </div>
                                     </div>
                                     <div class="col-4">
-                                        <label for="progressHeroicActs">Heldentaten</label>
-                                        <div class="progress" id="progressHeroicActs">
+                                        <label  class="white-text" for="progressHeroicActs">Heldentaten</label>
+                                        <div class="progress position-relative" id="pprogressHeroicActs">
                                             <div class="progress-bar" data-cat="81" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                                        </div>
+                                            <small class="justify-content-center d-flex position-absolute w-100"></small>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -351,11 +429,13 @@
                         <div id="contentQuestsWotLK" data-category="14863" class="content-item">Content for Quests - WOTLK</div>
 
                         <!-- Content Exploration -->
+                        <div id="contentExploration" data-category="97" class="content-item">Content for Exploration</div>
                         <div id="contentExplorationEK" data-category="14777" class="content-item">Content for Exploration - Eastern Kingdoms</div>
                         <div id="contentExplorationKalimdor" data-category="14778" class="content-item">Content for Exploration - Kalimdor</div>
                         <div id="contentExplorationOutland" data-category="14779" class="content-item">Content for Exploration - Outland</div>
                         <div id="contentExplorationNorthrend" data-category="14780" class="content-item">Content for Exploration - Northrend</div>
                         <!-- Content PVP -->
+                        <div id="contentpvp" data-category="95" class="content-item">Content for Player vs Player</div>
                         <div id="contentpvpAlteracValley" data-category="14801" class="content-item">Content for Player vs Player - Alterac Valley</div>
                         <div id="contentpvpArathiBasin" data-category="14802" class="content-item">Content for Player vs Player - Arathi Basin</div>
                         <div id="contentpvpEyeoftheStorm" data-category="14803" class="content-item">Content for Player vs Player - Eye of the Storm</div>
@@ -364,6 +444,7 @@
                         <div id="contentpvpIsleofConquest" data-category="15003" class="content-item">Content for Player vs Player - Isle of Conquest</div>
 
                         <!-- Content Dungeon and Raids -->
+                        <div id="contentdar" data-category="168" class="content-item">Content for Dungeon and Raids</div>
                         <div id="contentdarclassic" data-category="14808" class="content-item">Content for Dungeon and Raids - Classic</div>
                         <div id="contentdarburning-crusade" data-category="14805" class="content-item">Content for Dungeon and Raids - The Burning Crusade</div>
                         <div id="contentdarlich-king-dungeon" data-category="14806" class="content-item">Content for Dungeon and Raids - Lich King Dungeon</div>
@@ -378,6 +459,7 @@
                         <div id="contentdarlich-king-25" data-category="15042" class="content-item">Content for Dungeon and Raids - Fall of the Lich King 25</div>
 
                         <!-- Content Professions -->
+              
                         <div id="contentprofessions" data-category="169" class="content-item">Content for Professions</div>
                         <div id="contentprofessionscooking" data-category="170" class="content-item">Content for Cooking</div>
                         <div id="contentprofessionsfishing" data-category="171" class="content-item">Content for Fishing</div>
@@ -414,7 +496,14 @@
             </div>
 
             <script>
-                let categoryCounts = achievements.reduce((acc, achievement) => {
+            let filteredAchievements = achievements.filter(achievement => achievement.category !== 81);
+            let totalAchievements = filteredAchievements.length;
+            let completedAchievements = filteredAchievements.filter(achievement => achievement.completed === 1).length;
+            let progressOverall = (completedAchievements / totalAchievements) * 100;
+            $('#progressOverall .progress-bar').css('width', progressOverall + '%').attr('aria-valuenow', progressOverall);
+            $('#progressOverall small').text(completedAchievements + ' / ' + totalAchievements);
+            
+            let categoryCounts = achievements.reduce((acc, achievement) => {
                         // Fügt die kategorien zusammen für die zusammenfassung und progressbars
                         let category = [14861, 14862, 14863].includes(achievement.category) ? 96 : [165, 14801, 14802, 14803, 14804, 14881, 14901, 15003].includes(achievement.category) ? 95 : [14777, 14778, 14779, 14780].includes(
                                 achievement.category) ? 97 : [14808, 14805, 14806, 14921, 14922, 14923, 14961, 14962, 15001, 15002, 15041, 15042].includes(achievement.category) ? 168 : [170, 171, 172].includes(achievement.category) ?
@@ -438,21 +527,23 @@
                     },
 
                     {});
+$('#contentSummary .progress-bar').each(function() {
+    // Holen Sie sich die Kategorie der Fortschrittsleiste
+    let category = $(this).data('cat');
 
-                $('#contentSummary .progress-bar').each(function() {
-                    // Holen Sie sich die Kategorie der Fortschrittsleiste
-                    let category = $(this).data('cat');
+    // Wenn die Kategorie in categoryCounts ist
+    if (categoryCounts[category]) {
+        // Berechnen Sie den Fortschritt für die Kategorie
+        let progress = (categoryCounts[category].completed / categoryCounts[category].total) * 100;
 
-                    // Wenn die Kategorie in categoryCounts ist
-                    if (categoryCounts[category]) {
-                        // Berechnen Sie den Fortschritt für die Kategorie
-                        let progress = (categoryCounts[category].completed / categoryCounts[category].total) * 100;
+        // Aktualisieren Sie die Breite und das aria-valuenow-Attribut der Fortschrittsleiste
+        $(this).css('width', progress + '%').attr('aria-valuenow', progress);
 
-                        // Aktualisieren Sie die Breite und das aria-valuenow-Attribut der Fortschrittsleiste
-                        $(this).css('width', progress + '%').attr('aria-valuenow', progress);
-                        $(this).text(categoryCounts[category].completed + ' / ' + categoryCounts[category].total);
-                    }
-                });
+        // Aktualisieren Sie den Text innerhalb des <small>-Tags
+        $(this).parent().find('small').text(categoryCounts[category].completed + ' / ' + categoryCounts[category].total);
+    }
+});
+          
 
 
 
@@ -470,7 +561,7 @@
                     let achievementsWithCategory = achievements.filter((achievement) => achievement.category === Number(categoryId) && achievement.completed === 1);
                     // Sort the achievements by time
                     achievementsWithCategory.sort((a, b) => b.points - a.points);
-                    let contentHTMLtable = '<div class="table-responsive"><table class="table"><thead><tr><th>Name</th><th>Points</th><th>Time</th></tr></thead><tbody>';
+                    let contentHTMLtable = '<div  class="table-responsive"><table class="table"><thead><tr><th>Name</th><th>Points</th><th>Time</th></tr></thead><tbody>';
 
                     achievementsWithCategory.forEach((achievement) => {
                         //console.log("achievement", achievement);
@@ -486,6 +577,7 @@
 
                     div.innerHTML = contentHTMLtable;
                 });
+
 
                 const wowhead_tooltips = { colorlinks: true, iconizelinks: true, renamelinks: true, hide: { droppedby: true, dropchance: true } };
                 document.querySelectorAll(".col-3 a, .accordion-body a, button[data-target]").forEach((item) => {

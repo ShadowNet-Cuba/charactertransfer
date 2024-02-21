@@ -1,5 +1,5 @@
 <?php
-
+$mysqloutput = true;
 class transfer_model extends CI_Model
 {
  
