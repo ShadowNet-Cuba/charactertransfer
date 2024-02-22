@@ -45,18 +45,24 @@ class Admin extends MX_Controller
 
 
 
-public function getItemHTML($arrayvalue) {
-    
-    $itemId = $arrayvalue["ID"];
+public function getItemHTML($item) {
+   if(is_array($item)){ 
+   
+    $itemId = $item["ID"];
     // Generate the URL based on the itemId
     $url = "https://www.wowhead.com/wotlk/de/item=" . $itemId;
-    $gems = $arrayvalue["G1"].":".$arrayvalue["G2"].":".$arrayvalue["G3"];
-    $entchandID = $arrayvalue["E"];
+    $gems = $item["G1"].":".$item["G2"].":".$item["G3"];
+    $entchandID = $item["E"];
     
     // Construct the HTML code
-    $html = '<a data-wh-icon-size="large" href="' . $url . '" rel="item='. $itemId . '&gems=' . $gems . '&ench='. $entchandID . '">';
- 
-    $html .= '</a>';
+    $html = '<a data-wh-icon-size="large" href="' . $url . '" rel="item='. $itemId . '&gems=' . $gems . '&ench='. $entchandID . '"></a>';
+    } else {
+        $itemId = $item;
+        // Generate the URL based on the itemId
+        $url = "https://www.wowhead.com/wotlk/de/item=" . $itemId;
+        // Construct the HTML code
+        $html = '<a data-wh-icon-size="large" href="' . $url . '" rel="item='. $itemId . '"></a>';
+   }
    
     return $html;
 }
@@ -133,11 +139,11 @@ foreach ($scriptTags as $tag) {
         
         $newitemid = $lowestLevelItem["id"];
         $newitemname = $lowestLevelItem["name"];
-        $query = $this->db->query("INSERT INTO `fusiongen`.`character_transfer_item_replacements` (`itemid`, `replacementitemid`) VALUES ($itemid, $newitemid);");
+        $query = $this->db->query("INSERT INTO `character_transfer_item_replacements` (`itemid`, `replacementitemid`) VALUES ($itemid, $newitemid);");
         return ($newitemid);
         
     } else {
-        $query = $this->db->query("INSERT INTO `fusiongen`.`character_transfer_item_replacements` (`itemid`, `replacementitemid`) VALUES ($itemid, $itemid);");
+        $query = $this->db->query("INSERT INTO `character_transfer_item_replacements` (`itemid`, `replacementitemid`) VALUES ($itemid, $itemid);");
         return ($itemid);  
 
     
@@ -212,44 +218,22 @@ foreach ($scriptTags as $tag) {
                
                if(isset($items[$slot])){
                 $this->items[$slotname]["equipped"] = $this->getItemHTML($items[$slot]);
-               
-                  $this->items[$slotname]["replacement"] =  $this->getreplacementItem($items[$slot]["ID"]);
+  
+                $this->items[$slotname]["replacement"] =  $this->getItemHTML($this->getreplacementItem($items[$slot]["ID"]));
                  
               if (in_array($slot, $allowedmodels)) {
                 array_push($this->model,  array("item" => array ("entry" => (int)$items[$slot]["ID"] , "displayid" => (int)$this->getItemDisplayID($items[$slot]["ID"])) ,"transmog" => (object)array(), "slot"=> $slot ));
                 }
+            } else {
+                $this->items[$slotname]["equipped"] = "<img style='width:68px;height:68px' src='" . $this->template->page_url . "application/modules/charactertransfer/img/" . $slotname . ".png' />";
+                $this->items[$slotname]["replacement"] = "<img style='width:68px;height:68px' src='" . $this->template->page_url . "application/modules/charactertransfer/img/" . $slotname . ".png' />";
             }
-            }
-        }
-      
-      
-        // Loop through to make sure none are empty
-        foreach ($slots as $key => $value) {
-            if (!array_key_exists($value, $this->items)) {
-                switch ($value) {
-                    default:
-                        $image = $value;
-                        break;
-                    case "trinket1":
-                        $image = "trinket";
-                        break;
-                    case "trinket2":
-                        $image = "trinket";
-                        break;
-                    case "finger1":
-                        $image = "finger";
-                        break;
-                    case "finger2":
-                        $image = "finger";
-                        break;
-                    case "back":
-                        $image = "chest";
-                        break;
-                }
 
-                $this->items[$value] = "<img style='width:68px;height:68px' src='" . $this->template->page_url . "application/modules/charactertransfer/img/" . $image . ".png' />";
             }
         }
+      
+      
+
          $this->charData['items'] = $this->items;
          $this->charData['model'] = $this->model;
      

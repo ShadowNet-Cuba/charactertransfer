@@ -30,7 +30,6 @@
         }
     }
 
-
     // Add more replaceItem calls for other items
 
 </script>
@@ -60,35 +59,59 @@
                 <table>
                     <tr>
                         <td><input type="checkbox" id="checkhead"></td>
-                        <td>{$items.head.equipped}</td>
+                        <td>
+                        <div class="equipped">{$items.head.equipped}</div>
+                        <div class="replacement" style="display:none;">{$items.head.replacement}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkneck"></td>
-                        <td>{$items.neck.equipped}</td>
+                        <td>
+                        <div class="equipped">{$items.neck.equipped}</div>
+                        <div class="replacement" style="display:none;">{$items.neck.replacement}</div>
+                        </td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox" id="checkshoulder"></td>
-                        <td>{$items.shoulders.equipped}</td>
+                        <td><input type="checkbox" id="checkshoulders"></td>
+                        <td>
+                            <div class="equipped">{$items.shoulders.equipped}</div>
+                            <div class="replacement" style="display:none;">{$items.shoulders.replacement}</div>
+                      </td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkback"></td>
-                        <td>{$items.back.equipped}</td>
+                        <td>
+                            <div class="equipped">{$items.back.equipped}</div>
+                            <div class="replacement" style="display:none;">{$items.back.replacement}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkchest"></td>
-                        <td>{$items.chest.equipped}</td>
+                        <td>
+                            <div class="equipped">{$items.chest.equipped}</div>
+                            <div class="replacement" style="display:none;">{$items.chest.replacement}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checksbody"></td>
-                        <td>{$items.body.equipped}</td>
+                        <td>
+                            <div class="equipped">{$items.body.equipped}</div>
+                            <div class="replacement" style="display:none;">{$items.body.replacement}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checktabard"></td>
-                        <td>{$items.tabard.equipped}</td>
+                        <td>
+                            <div class="equipped">{$items.tabard.equipped}</div>
+                            <div class="replacement" style="display:none;">{$items.tabard.replacement}</div>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkwrists"></td>
-                        <td>{$items.wrists.equipped}</td>
+                        <td>
+                            <div class="equipped">{$items.wrists.equipped}</div>
+                            <div class="replacement" style="display:none;">{$items.wrists.replacement}</div>
+                        </td>
                     </tr>
                 </table>
                   
@@ -101,35 +124,60 @@
                         <table>
                             <tr>
                                 <td><input type="checkbox" id="checkhands"></td>
-                                <td>{$items.hands.equipped}</td>
+                                <td>
+                                    <div class="equipped">{$items.hands.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.hands.replacement}</div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkwaist"></td>
-                                <td>{$items.waist.equipped}</td>
+                                <td>
+                                    <div class="equipped">{$items.waist.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.waist.replacement}</div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checklegs"></td>
-                                <td>{$items.legs.equipped}</td>
+                                <td>
+                                    <div class="equipped">{$items.legs.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.legs.replacement}</div>
+                                
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkfeet"></td>
-                                <td>{$items.feet.equipped}</td>
+                                <td>
+                                    <div class="equipped">{$items.feet.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.feet.replacement}</div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkfinger1"></td>
-                                <td>{$items.finger1.equipped}</td>
+                                <td>
+                                    <div class="equipped">{$items.finger1.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.finger1.replacement}</div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkfinger2"></td>
-                                <td>{$items.finger2.equipped}</td>
+                                <td>
+                                    <div class="equipped">{$items.finger2.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.finger2.replacement}</div>
+                                </td>
                             </tr>
                             <tr>
-                                <td><input type="checkbox" id="checktrinket1"></td>
-                                <td>{$items.trinket1.equipped}</td>
+                                <td><input type="checkbox" id="checktrinket1"></td> 
+                                <td>
+                                    <div class="equipped">{$items.trinket1.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.trinket1.replacement}</div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checktrinket2"></td>
-                                <td>{$items.trinket2.equipped}</td>
+                                <td>    
+                                    <div class="equipped">{$items.trinket2.equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items.trinket2.replacement}</div>    
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -171,9 +219,9 @@
                         <div class="row" style="display: flex; justify-content: space-between;">
                             <div class="col"></div>
                             <div class="col"></div>
-                            <div class="col g-0">{$items.mainhand}</div>
-                            <div class="col g-0">{$items.offhand}</div>
-                            <div class="col g-0">{$items.ranged}</div>
+                            <div class="col g-0">{$items.mainhand.equipped}</div>
+                            <div class="col g-0">{$items.offhand.equipped}</div>
+                            <div class="col g-0">{$items.ranged.equipped}</div>
                             <div class="col"></div>
                             <div class="col"></div>
                         </div>
@@ -843,6 +891,22 @@ $('#contentSummary .progress-bar').each(function() {
 });
 
                     </script>
+                    <script>
+$(document).ready(function() {
+    $('#myTabContent input[type="checkbox"]').click(function() {
+        // Toggle visibility based on checkbox state
+        if ($(this).is(':checked')) {
+            // Hide the equipped item and show the replacement item
+            $(this).closest('tr').find('.equipped').hide();
+            $(this).closest('tr').find('.replacement').show();
+        } else {
+            // Show the equipped item and hide the replacement item
+            $(this).closest('tr').find('.equipped').show();
+            $(this).closest('tr').find('.replacement').hide();
+        }
+    });
+});
+</script>
 
                     <!-- Characters Attributes.End -->
                 </body>
