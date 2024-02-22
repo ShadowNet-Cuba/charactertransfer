@@ -71,6 +71,81 @@ public function getItemDisplayID($itemId){
 
     return $displayId;
 }
+function getreplacementItem($itemid) {
+
+    $query = $this->db->query("SELECT replacementitemid  FROM character_transfer_item_replacements where itemid = '$itemid';");
+    if ($query->num_rows() > 0) {
+        $data = array();
+        $row = $query->result_array();
+        return $row[0]["replacementitemid"];
+    } else {
+        
+
+
+
+
+
+$url = 'https://www.wowhead.com/wotlk/item='.$itemid;
+
+// Create DOM from URL
+$html = file_get_contents($url);
+
+$doc = new DOMDocument();
+@$doc->loadHTML($html);
+$xpath = new DOMXPath($doc);
+
+// Query the <script> the only element with the New Listview() functions where id: 'see-also'
+
+
+$scriptTags = $xpath->query('//script');
+$items = array();
+$lowestLevelItem = null;
+foreach ($scriptTags as $tag) {
+    $jsCode = $tag->nodeValue;
+    // This regex is crafted to be more targeted towards capturing the exact function
+    if (preg_match("/new Listview\(\{\s*template: 'item',\s*id: 'see-also',.*?\}\);/s", $jsCode, $matches)) {
+        // $matches[0] will contain the exact JavaScript code for the Listview function that includes 'id: "see-also"'
+      
+        if (preg_match('/data: (\[.*?\]),\s*\}\);/s', $matches[0], $dataMatches)) {
+            $jsonData = $dataMatches[1]; // The JSON string of the 'data' attribute
+            $dataArray = json_decode($jsonData, true); // Convert JSON string to PHP array
+            
+            // Check if json_decode was successful
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $items = $dataArray;
+            //  print_r($dataArray); // For demonstration, this will print the array
+                //print_r($dataArray); // For demonstration, this will print the array
+            } else {
+                //echo "JSON decoding error: " . json_last_error_msg();
+            }
+            }
+        break; // Assuming there's only one match, exit the loop
+    }
+
+    }
+    if(count($items) > 0){
+        foreach ($items as $item) {
+            // If there's no lowest level item yet or this item's level is lower, update $lowestLevelItem
+            if ($lowestLevelItem === null || $item['level'] < $lowestLevelItem['level']) {
+                $lowestLevelItem = $item;
+            }
+        }
+        
+        $newitemid = $lowestLevelItem["id"];
+        $newitemname = $lowestLevelItem["name"];
+        $query = $this->db->query("INSERT INTO `fusiongen`.`character_transfer_item_replacements` (`itemid`, `replacementitemid`) VALUES ($itemid, $newitemid);");
+        return ($newitemid);
+        
+    } else {
+        $query = $this->db->query("INSERT INTO `fusiongen`.`character_transfer_item_replacements` (`itemid`, `replacementitemid`) VALUES ($itemid, $itemid);");
+        return ($itemid);  
+
+    
+
+
+}
+}
+}
     
     
 
@@ -136,7 +211,10 @@ public function getItemDisplayID($itemId){
                 
                
                if(isset($items[$slot])){
-                $this->items[$slotname] = $this->getItemHTML($items[$slot]);
+                $this->items[$slotname]["equipped"] = $this->getItemHTML($items[$slot]);
+               
+                  $this->items[$slotname]["replacement"] =  $this->getreplacementItem($items[$slot]["ID"]);
+                 
               if (in_array($slot, $allowedmodels)) {
                 array_push($this->model,  array("item" => array ("entry" => (int)$items[$slot]["ID"] , "displayid" => (int)$this->getItemDisplayID($items[$slot]["ID"])) ,"transmog" => (object)array(), "slot"=> $slot ));
                 }

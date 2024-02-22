@@ -6,16 +6,33 @@
 
 {/literal}
 <script>
-    var talents =    {json_encode($talenttree)};  // FusionGen template variable
-    var currency =    {json_encode($currency)};  // FusionGen template variable
-    var achievements =    {json_encode($achievements)};  // FusionGen template variable
+    var talents = {json_encode($talenttree)};  // FusionGen template variable
+    var currency = {json_encode($currency)};  // FusionGen template variable
+    var achievements = {json_encode($achievements)};  // FusionGen template variable
+    var achievements = "";
+
+    var Inventory = {json_encode($Inventory)};  // FusionGen template variable
+
+    //var items = {json_encode($items)};  // FusionGen template variable
+
+    var blub = {json_encode($Equippment)};  // FusionGen template variable
 
 
-    var Inventory =    {json_encode($Inventory)};  // FusionGen template variable
 
-    var items =    {json_encode($items)};  // FusionGen template variable
+    function replaceItem(itemId, newItemId) {
+        var checkbox = document.getElementById('check' + itemId);
+        if (checkbox.checked) {
+            var itemElement = document.getElementById(itemId);
+            console.log(itemElement);
+            //if (itemElement) {
+            //    itemElement.innerHTML = items[newItemId];
+           // }
+        }
+    }
 
-    var blub =    {json_encode($Equippment)};  // FusionGen template variable
+
+    // Add more replaceItem calls for other items
+
 </script>
 
 <div class="container">
@@ -43,35 +60,35 @@
                 <table>
                     <tr>
                         <td><input type="checkbox" id="checkhead"></td>
-                        <td>{$items.head}</td>
+                        <td>{$items.head.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkneck"></td>
-                        <td>{$items.neck}</td>
+                        <td>{$items.neck.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkshoulder"></td>
-                        <td>{$items.shoulders}</td>
+                        <td>{$items.shoulders.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkback"></td>
-                        <td>{$items.back}</td>
+                        <td>{$items.back.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkchest"></td>
-                        <td>{$items.chest}</td>
+                        <td>{$items.chest.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checksbody"></td>
-                        <td>{$items.body}</td>
+                        <td>{$items.body.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checktabard"></td>
-                        <td>{$items.tabard}</td>
+                        <td>{$items.tabard.equipped}</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="checkwrists"></td>
-                        <td>{$items.wrists}</td>
+                        <td>{$items.wrists.equipped}</td>
                     </tr>
                 </table>
                   
@@ -84,35 +101,35 @@
                         <table>
                             <tr>
                                 <td><input type="checkbox" id="checkhands"></td>
-                                <td>{$items.hands}</td>
+                                <td>{$items.hands.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkwaist"></td>
-                                <td>{$items.waist}</td>
+                                <td>{$items.waist.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checklegs"></td>
-                                <td>{$items.legs}</td>
+                                <td>{$items.legs.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkfeet"></td>
-                                <td>{$items.feet}</td>
+                                <td>{$items.feet.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkfinger1"></td>
-                                <td>{$items.finger1}</td>
+                                <td>{$items.finger1.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checkfinger2"></td>
-                                <td>{$items.finger2}</td>
+                                <td>{$items.finger2.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checktrinket1"></td>
-                                <td>{$items.trinket1}</td>
+                                <td>{$items.trinket1.equipped}</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" id="checktrinket2"></td>
-                                <td>{$items.trinket2}</td>
+                                <td>{$items.trinket2.equipped}</td>
                             </tr>
                         </table>
                     </div>
@@ -807,6 +824,24 @@ $('#contentSummary .progress-bar').each(function() {
 
 
                         });
+                        $(document).ready(function() {
+    // Listen for clicks on checkboxes within the tab-content area
+    $('#myTabContent input[type="checkbox"]').click(function() {
+        // Check if the checkbox is checked
+        if ($(this).is(':checked')) {
+            // Find the next sibling td element and get its text
+            var itemValue = $(this).closest('td').next('td').html();
+            //this return : <a data-wh-icon-size="large" href="https://www.wowhead.com/wotlk/de/item=51277" rel="item=51277&amp;gems=41398:40111:0&amp;ench=3817" data-wh-icon-added="true" class="q4"><span class="iconlarge" data-env="live" data-tree="live" data-game="wow" data-type="item"><ins style="background-image: url(&quot;https://wow.zamimg.com/images/wow/icons/large/inv_helmet_154.jpg&quot;);"></ins><del></del></span></a>
+            //get the href attribute the itemid is the last part of the href
+            var itemid = itemValue.split('item=')[1].split('"')[0];
+            console.log(itemid); // Console log the value
+            
+            // Replace the text with a new value (optional)
+            // $(this).closest('td').next('td').text('New Value');
+        }
+    });
+});
+
                     </script>
 
                     <!-- Characters Attributes.End -->
