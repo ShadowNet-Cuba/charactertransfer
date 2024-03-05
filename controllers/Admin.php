@@ -163,7 +163,7 @@ foreach ($scriptTags as $tag) {
        $data = $this->transfer_model->getTransferByID($id);
        
        $this->charData = $this->transfer_model->ReadCharacterDump($data[0]["chardump"]);
-      
+
         // Load the items
         $items = $this->charData["Equippment"]; 
 
@@ -188,7 +188,12 @@ foreach ($scriptTags as $tag) {
                     16 => "mainhand",
                     17 => "offhand",
                     18 => "ranged",
-                    19 => "tabard"
+                    19 => "tabard",
+                    20 => "bag1",
+                    21 => "bag2",
+                    22 => "bag3",
+                    23 => "bag4"
+                   
                 );
                 
 
@@ -226,7 +231,7 @@ foreach ($scriptTags as $tag) {
                 }
             } else {
                 $this->items[$slotname]["equipped"] = "<img style='width:68px;height:68px' src='" . $this->template->page_url . "application/modules/charactertransfer/img/" . $slotname . ".png' />";
-                $this->items[$slotname]["replacement"] = "<img style='width:68px;height:68px' src='" . $this->template->page_url . "application/modules/charactertransfer/img/" . $slotname . ".png' />";
+                
             }
 
             }

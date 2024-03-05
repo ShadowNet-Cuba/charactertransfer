@@ -7,7 +7,7 @@
 {/literal}
 <script>
     var talents = {json_encode($talenttree)};  // FusionGen template variable
-    var currency = {json_encode($currency)};  // FusionGen template variable
+ 
     var achievements = {json_encode($achievements)};  // FusionGen template variable
     var achievements = "";
 
@@ -34,6 +34,10 @@
 
 </script>
 
+
+
+
+
 <div class="container">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -55,131 +59,49 @@
             <div class="container">
                 <div class="row">
                     <div class="col-2" style="border: 2px solid pink;">
-                    
-                <table>
-                    <tr>
-                        <td><input type="checkbox" id="checkhead"></td>
-                        <td>
-                        <div class="equipped">{$items.head.equipped}</div>
-                        <div class="replacement" style="display:none;">{$items.head.replacement}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checkneck"></td>
-                        <td>
-                        <div class="equipped">{$items.neck.equipped}</div>
-                        <div class="replacement" style="display:none;">{$items.neck.replacement}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checkshoulders"></td>
-                        <td>
-                            <div class="equipped">{$items.shoulders.equipped}</div>
-                            <div class="replacement" style="display:none;">{$items.shoulders.replacement}</div>
-                      </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checkback"></td>
-                        <td>
-                            <div class="equipped">{$items.back.equipped}</div>
-                            <div class="replacement" style="display:none;">{$items.back.replacement}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checkchest"></td>
-                        <td>
-                            <div class="equipped">{$items.chest.equipped}</div>
-                            <div class="replacement" style="display:none;">{$items.chest.replacement}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checksbody"></td>
-                        <td>
-                            <div class="equipped">{$items.body.equipped}</div>
-                            <div class="replacement" style="display:none;">{$items.body.replacement}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checktabard"></td>
-                        <td>
-                            <div class="equipped">{$items.tabard.equipped}</div>
-                            <div class="replacement" style="display:none;">{$items.tabard.replacement}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="checkwrists"></td>
-                        <td>
-                            <div class="equipped">{$items.wrists.equipped}</div>
-                            <div class="replacement" style="display:none;">{$items.wrists.replacement}</div>
-                        </td>
-                    </tr>
+        
+                    <table>
+                    {assign var="specificItems" value=["head", "neck", "shoulders", "back", "chest", "body", "tabard", "wrists"]}
+                    {foreach $specificItems as $key}
+                        {if array_key_exists($key, $items)}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="check{$key}">
+                                </td>
+                                <td>
+                                    <div class="equipped">{$items[$key].equipped}</div>
+                                    {if array_key_exists($key, $items) && array_key_exists("replacement", $items[$key])}
+                                        <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
+                                    {/if}
+                                </td>
+                            </tr>
+                        {/if}
+                    {/foreach}
                 </table>
-                  
+                
+                
                        
                     </div>
                     <div class="col-4" style="border: 2px solid red;">
                         <div id="model_3d" class="model" style="display: block; height: 625px; position: relative;"></div>
                     </div>
                     <div class="col-2" style="border: 2px solid blue;">
-                        <table>
+                    <table>
+                    {assign var="specificItems" value=["hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"]}
+                    {foreach $specificItems as $key}
+                        {if array_key_exists($key, $items)}
                             <tr>
-                                <td><input type="checkbox" id="checkhands"></td>
                                 <td>
-                                    <div class="equipped">{$items.hands.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.hands.replacement}</div>
+                                    <input type="checkbox" id="check{$key}">
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checkwaist"></td>
                                 <td>
-                                    <div class="equipped">{$items.waist.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.waist.replacement}</div>
+                                    <div class="equipped">{$items[$key].equipped}</div>
+                                    <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checklegs"></td>
-                                <td>
-                                    <div class="equipped">{$items.legs.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.legs.replacement}</div>
-                                
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checkfeet"></td>
-                                <td>
-                                    <div class="equipped">{$items.feet.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.feet.replacement}</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checkfinger1"></td>
-                                <td>
-                                    <div class="equipped">{$items.finger1.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.finger1.replacement}</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checkfinger2"></td>
-                                <td>
-                                    <div class="equipped">{$items.finger2.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.finger2.replacement}</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checktrinket1"></td> 
-                                <td>
-                                    <div class="equipped">{$items.trinket1.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.trinket1.replacement}</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="checktrinket2"></td>
-                                <td>    
-                                    <div class="equipped">{$items.trinket2.equipped}</div>
-                                    <div class="replacement" style="display:none;">{$items.trinket2.replacement}</div>    
-                                </td>
-                            </tr>
-                        </table>
+                        {/if}
+                    {/foreach}
+                </table>
                     </div>
                     <div class="col-4" style="border: 2px solid yellow;">
                         <h3>Talent Specialization</h3>
@@ -206,39 +128,112 @@
                         <div class="divider"></div>
                         <div id="money" class="money">
                             <h3>Money</h3>
+                            <div class="row">
+                                <div class="col-xs-2" style="display: flex; justify-content: space-between; align-items: center; width: 60%; height: 100%; border: 2px solid green;">
+                                    <span class="gold"><i class="fa-solid fa-coins"></i></span>
+                                    <input type="number" name="money[gold]" min="0" step="100" max="214747" value="{$main.money.gold}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2" style="display: flex; justify-content: space-between; align-items: center; width: 60%; height: 100%; border: 2px solid green;">
+                                    <span class="silver"><i class="fa-solid fa-coins"></i></span>
+                                    <input type="number" name="money[silver]" min="0" max="99" value="{$main.money.silver}" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2" style="display: flex; justify-content: space-between; align-items: center; width: 60%; height: 100%; border: 2px solid green;">
+                                    <span class="copper"><i class="fa-solid fa-coins"></i></span>
+                                    <input type="number" name="money[copper]" min="0" max="99"  value="{$main.money.copper}">
+                                </div>
+                            </div>
+                             
 
-                            <span class="gold"><i class="fa-solid fa-coins"></i> {$main.money.gold}</span>
-                            <span class="silver"><i class="fa-solid fa-coins"></i> {$main.money.silver}</span>
-                            <span class="copper"><i class="fa-solid fa-coins"></i> {$main.money.copper}</span>
+
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-1" style="border: 2px solid pink;"></div>
-                    <div class="col-6" style="border: 2px solid red;">
+                    <div class="col-2" style="border: 2px solid pink;"></div>
+                    <div class="col-5" style="border: 2px solid red;">
                         <div class="row" style="display: flex; justify-content: space-between;">
-                            <div class="col"></div>
-                            <div class="col"></div>
-                            <div class="col g-0">{$items.mainhand.equipped}</div>
-                            <div class="col g-0">{$items.offhand.equipped}</div>
-                            <div class="col g-0">{$items.ranged.equipped}</div>
-                            <div class="col"></div>
-                            <div class="col"></div>
+                                               
+
+                        
+                            <div class="col-2" style="border: 2px solid blue;">
+                                <table>
+                                    {assign var="specificItems" value=["mainhand", "offhand", "ranged"]}
+                                    <tr>
+                                        {foreach $specificItems as $key}
+                                            {if array_key_exists($key, $items)}
+                                                <td>
+                                                    <input type="checkbox" id="check{$key}">
+                                                </td>
+                                                <td>
+                                                    <div class="equipped">{$items[$key].equipped}</div>
+                                                    {if array_key_exists("replacement", $items[$key])}
+                                                        <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
+                                                    {/if}
+                                                </td>
+                                            {/if}
+                                        {/foreach}
+                                    </tr>
+                                </table>
+                            </div>
+                     
+                        
+                        
                         </div>
                     </div>
-                    <div class="col-5" style="border: 2px solid yellow;"></div>
+                    <div class="col-5" style="border: 2px solid yellow;">
+                    <table>
+                                    {assign var="specificItems" value=["backback1", "backback2", "backback3","backback4"]}
+                                    <tr>
+                                        {foreach $specificItems as $key}
+                                            {if array_key_exists($key, $items)}
+                                                <td>
+                                                    <input type="checkbox" id="check{$key}">
+                                                </td>
+                                                <td>
+                                                    <div class="equipped">{$items[$key].equipped}</div>
+                                                    {if array_key_exists("replacement", $items[$key])}
+                                                        <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
+                                                    {/if}
+                                                </td>
+                                            {/if}
+                                        {/foreach}
+                                    </tr>
+                                </table>
+                    
+                    </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Currency</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody id="currency-table-body">
-                        <!-- JavaScript will insert rows here -->
+
+                      
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Currency</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {foreach $currency as $item}
+                                <tr>
+                                    <td>
+                                        <a class="item" data-wh-rename-link="true" data-wh-icon-size="small" href="https://www.wowhead.com/wotlk/de/item={$item.I}"></a>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="item" min="0" class="form-control" value="{$item.C}">
+                                    </td>
+                                </tr>
+                                {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    
                     </tbody>
-                </table>
+             
             </div>
         </div>
         <div class="tab-pane fade" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
@@ -768,16 +763,7 @@ $('#contentSummary .progress-bar').each(function() {
                                 break;
                         }
 
-                        //add currencys
-                        currency.forEach(function(item) {
-                            // Generate the HTML for each currency
-                            var html =
-                                '<tr><td><a class="item" data-wh-rename-link="true" data-wh-icon-size="small" href="https://www.wowhead.com/wotlk/de/item=' +
-                                item["I"] + '"></a></td><td>' + item["C"] + '</td></tr>';
-                            document.getElementById("currency-table-body").innerHTML += html;
-                        });
-
-
+        
 
 
                         professions.main.forEach(function(item) {
@@ -834,7 +820,7 @@ $('#contentSummary .progress-bar').each(function() {
                         document.addEventListener('DOMContentLoaded', function() {
 
                             var rows = [];
-
+                            var Inventory = "";
                             Object.keys(Inventory).forEach(function(key) {
                                 Object.keys(Inventory[key]).forEach(function(itemKey) {
                                     var item = Inventory[key][itemKey];

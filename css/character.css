@@ -60,3 +60,13 @@ a.icontinyl span {
  td {
 text-align: center;
  }
+
+ .currency-input {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px; /* Adjust spacing between the currency inputs */
+}
+.currency-input input {
+    margin-left: 5px; /* Space between icon and input */
+    width: 80px; /* Adjust input width as needed */
+}
