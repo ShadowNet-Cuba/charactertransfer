@@ -9,28 +9,6 @@
     var talents = {json_encode($talenttree)};  // FusionGen template variable
  
     var achievements = {json_encode($achievements)};  // FusionGen template variable
-    var achievements = "";
-
-    var Inventory = {json_encode($Inventory)};  // FusionGen template variable
-
-    //var items = {json_encode($items)};  // FusionGen template variable
-
-    var blub = {json_encode($Equippment)};  // FusionGen template variable
-
-
-
-    function replaceItem(itemId, newItemId) {
-        var checkbox = document.getElementById('check' + itemId);
-        if (checkbox.checked) {
-            var itemElement = document.getElementById(itemId);
-            console.log(itemElement);
-            //if (itemElement) {
-            //    itemElement.innerHTML = items[newItemId];
-           // }
-        }
-    }
-
-    // Add more replaceItem calls for other items
 
 </script>
 
@@ -183,26 +161,26 @@
                         </div>
                     </div>
                     <div class="col-5" style="border: 2px solid yellow;">
-                    <table>
-                                    {assign var="specificItems" value=["bag1", "bag2", "bag3","bag4"]}
-                                    <tr>
-                                        {foreach $specificItems as $key}
-                                            {if array_key_exists($key, $items)}
-                                                <td>
-                                                    <input type="checkbox" id="check{$key}">
-                                                </td>
-                                                <td>
-                                                    <div class="equipped">{$items[$key].equipped}</div>
-                                                    {if array_key_exists("replacement", $items[$key])}
-                                                        <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
-                                                    {/if}
-                                                </td>
-                                            {/if}
-                                        {/foreach}
-                                    </tr>
-                                </table>
+                    <div class="row">
+                        {assign var="specificItems" value=["bag1", "bag2", "bag3","bag4"]}
+                        {foreach $specificItems as $key}
+                            {if array_key_exists($key, $items)}
+                                <div class="col-md-3">
+                                <div class="row">
+                                    <input type="checkbox" id="check{$key}">
+                               
+                                
+                                    <div class="equipped">{$items[$key].equipped}</div>
+                                    {if array_key_exists("replacement", $items[$key])}
+                                        <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
+                                    {/if}
+                                </div>
+                                </div>
+                            {/if}
+                        {/foreach}
                     
                     </div>
+                </div>
                 </div>
 
                       
@@ -398,6 +376,7 @@
 
                     <div id="AchievementContent" class="col-9">
                         <!-- Content Divs -->
+                        dasdasd
                         <div id="contentSummary" class="content-item">
                             <div class="container">
                             <label class="white-text" for="progressOverall">Gesamter Fortschritt</label>
