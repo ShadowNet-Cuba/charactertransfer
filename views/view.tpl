@@ -159,26 +159,24 @@
                                                
 
                         
-                            <div class="col-2" style="border: 2px solid blue;">
-                                <table>
+                           
+                                <div class="row">
                                     {assign var="specificItems" value=["mainhand", "offhand", "ranged"]}
-                                    <tr>
-                                        {foreach $specificItems as $key}
-                                            {if array_key_exists($key, $items)}
-                                                <td>
+                                    {foreach $specificItems as $key}
+                                        {if array_key_exists($key, $items)}
+                                            <div class="col-4">
+                                                <div class="item">
                                                     <input type="checkbox" id="check{$key}">
-                                                </td>
-                                                <td>
                                                     <div class="equipped">{$items[$key].equipped}</div>
                                                     {if array_key_exists("replacement", $items[$key])}
                                                         <div class="replacement" style="display:none;">{$items[$key].replacement}</div>
                                                     {/if}
-                                                </td>
-                                            {/if}
-                                        {/foreach}
-                                    </tr>
-                                </table>
-                            </div>
+                                                </div>
+                                            </div>
+                                        {/if}
+                                    {/foreach}
+                                </div>
+                           
                      
                         
                         
@@ -186,7 +184,7 @@
                     </div>
                     <div class="col-5" style="border: 2px solid yellow;">
                     <table>
-                                    {assign var="specificItems" value=["backback1", "backback2", "backback3","backback4"]}
+                                    {assign var="specificItems" value=["bag1", "bag2", "bag3","bag4"]}
                                     <tr>
                                         {foreach $specificItems as $key}
                                             {if array_key_exists($key, $items)}
@@ -687,6 +685,21 @@ $('#contentSummary .progress-bar').each(function() {
                             <th>ID</th>
                             <th>Count</th>
                         </tr>
+        
+                        
+                                   
+                        {foreach $Inventory as $slot}
+                            {foreach $slot as $item}
+                            <tr>
+                                <td>
+                                    <a class="item" data-wh-rename-link="true" data-wh-icon-size="small" href="https://www.wowhead.com/wotlk/de/item={$item.ID}"></a>
+                                </td>
+                                <td>
+                                    <input type="number" name="item" min="0" class="form-control" value="{$item.Count}">
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/foreach}
                     </table>
 
                     <script>
@@ -817,64 +830,7 @@ $('#contentSummary .progress-bar').each(function() {
 
 
 
-                        document.addEventListener('DOMContentLoaded', function() {
 
-                            var rows = [];
-                            var Inventory = "";
-                            Object.keys(Inventory).forEach(function(key) {
-                                Object.keys(Inventory[key]).forEach(function(itemKey) {
-                                    var item = Inventory[key][itemKey];
-
-                                    var newRow = document.createElement("tr");
-
-                                    var idCell = document.createElement("td");
-                                    var hyperlink = document.createElement("a");
-                                    hyperlink.href = "https://www.wowhead.com/wotlk/de/item=" + item.ID;
-                                    hyperlink.setAttribute("data-wh-icon-size", "middle");
-                                    hyperlink.setAttribute("data-wh-rename-link", "true");
-                                    hyperlink.innerHTML = item.ID;
-
-                                    idCell.appendChild(hyperlink);
-                                    newRow.appendChild(idCell);
-
-                                    var countCell = document.createElement("td");
-                                    countCell.innerHTML = item.Count;
-                                    newRow.appendChild(countCell);
-
-                                    rows.push({ row: newRow, quantity: item.Q });
-                                });
-                            });
-
-                            // Sort the rows array by quantity in descending order
-                            rows.sort(function(a, b) {
-                                return b.quantity - a.quantity;
-                            });
-
-                            // Append the sorted rows to the table
-                            var tableBody = document.getElementById("dataTable");
-                            rows.forEach(function(rowObj) {
-                                tableBody.appendChild(rowObj.row);
-                            });
-
-
-                        });
-                        $(document).ready(function() {
-    // Listen for clicks on checkboxes within the tab-content area
-    $('#myTabContent input[type="checkbox"]').click(function() {
-        // Check if the checkbox is checked
-        if ($(this).is(':checked')) {
-            // Find the next sibling td element and get its text
-            var itemValue = $(this).closest('td').next('td').html();
-            //this return : <a data-wh-icon-size="large" href="https://www.wowhead.com/wotlk/de/item=51277" rel="item=51277&amp;gems=41398:40111:0&amp;ench=3817" data-wh-icon-added="true" class="q4"><span class="iconlarge" data-env="live" data-tree="live" data-game="wow" data-type="item"><ins style="background-image: url(&quot;https://wow.zamimg.com/images/wow/icons/large/inv_helmet_154.jpg&quot;);"></ins><del></del></span></a>
-            //get the href attribute the itemid is the last part of the href
-            var itemid = itemValue.split('item=')[1].split('"')[0];
-            console.log(itemid); // Console log the value
-            
-            // Replace the text with a new value (optional)
-            // $(this).closest('td').next('td').text('New Value');
-        }
-    });
-});
 
                     </script>
                     <script>
@@ -883,12 +839,26 @@ $(document).ready(function() {
         // Toggle visibility based on checkbox state
         if ($(this).is(':checked')) {
             // Hide the equipped item and show the replacement item
-            $(this).closest('tr').find('.equipped').hide();
-            $(this).closest('tr').find('.replacement').show();
+            if ($(this).closest('td').next('td').html() !== null && $(this).closest('td').next('td').html() !== undefined) {
+                $(this).closest('tr').find('.equipped').hide();
+                $(this).closest('tr').find('.replacement').show();
+            }
+            else {
+                $(this).nextAll('div.equipped').first().hide();
+                $(this).nextAll('div.replacement').first().show();
+            }
+       
         } else {
             // Show the equipped item and hide the replacement item
-            $(this).closest('tr').find('.equipped').show();
-            $(this).closest('tr').find('.replacement').hide();
+            if ($(this).closest('td').next('td').html() !== null && $(this).closest('td').next('td').html() !== undefined) {
+                $(this).closest('tr').find('.equipped').show();
+                $(this).closest('tr').find('.replacement').hide();
+            }
+            else {
+                $(this).nextAll('div.equipped').first().show();
+                $(this).nextAll('div.replacement').first().hide();
+            }
+          
         }
     });
 });
