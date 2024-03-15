@@ -18,8 +18,10 @@
 
 
 <div class="container">
-<h1>{$main.name} ({$main.level})</h1>
-Realmlist: {$main.ServerIP}, Realm: {$main.ServerRealm }, Played Time: {$main.playtime }
+<h1 class="text-center">{$main.name} ({$main.level})</h1>
+<div class="text-center">
+    Realmlist: {$main.ServerIP}, Realm: {$main.ServerRealm}, Played Time: {$main.playtime}
+</div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
