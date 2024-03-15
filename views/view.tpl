@@ -5,6 +5,7 @@
     <script src="https://wow.zamimg.com/js/tooltips.js"></script>
 
 {/literal}
+
 <script>
     var talents = {json_encode($talenttree)};  // FusionGen template variable
  
@@ -17,6 +18,8 @@
 
 
 <div class="container">
+<h1>{$main.name} ({$main.level})</h1>
+Realmlist: {$main.ServerIP}, Realm: {$main.ServerRealm }, Played Time: {$main.playtime }
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -376,7 +379,7 @@
 
                     <div id="AchievementContent" class="col-9">
                         <!-- Content Divs -->
-                        dasdasd
+                       
                         <div id="contentSummary" class="content-item">
                             <div class="container">
                             <label class="white-text" for="progressOverall">Gesamter Fortschritt</label>

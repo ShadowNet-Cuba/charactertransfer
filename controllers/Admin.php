@@ -259,21 +259,14 @@ public function view($id)
 {
     // Code for when $id is present
     $this->getInfo($id);
-    $this->template->setTitle($this->charData["main"]["name"]);
+    $this->template->setTitle("Validate:" . $this->charData["main"]["name"]);
 
-    $avatarArray = array(
-        'class' => $this->class,
-        'race' => $this->race,
-        'level' => $this->level,
-        'gender' => $this->gender
-    );
 
-    $character = $this->template->loadPage("view.tpl", $this->charData);
 
     $data = array(
         "module" => "default",
-        "headline" => "<span style='cursor:pointer;' data-tip='' onClick='window.location=\"" . $this->template->page_url . "profile/" . $this->account . "\"'>" . $this->charData["main"]["name"],
-        "content" => $character
+        "headline" => "Charactervalidation",
+        "content" => $this->template->loadPage("view.tpl", $this->charData),
     );
 
 

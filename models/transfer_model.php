@@ -52,7 +52,7 @@ public function getTransferByID($id) {
         foreach ($row as $character) {
             $data[] = array(
                 "id" => $character["id"], 
-                "chardump" => $character["chardump"], 
+                "chardump" => json_decode($character["chardump"],true), 
                 "userid" => $character["accountid"], 
                 "charactername" => $character["charactername"], 
                 "race" => $this->getRaceString($character["race"]), 
@@ -208,7 +208,7 @@ public function insertTransfer($chardump)
     {
         $data = array(
             'accountid' => $user_id,
-            'chardump' => $chardump,
+            'chardump' => $this->ReturnCharDumpAsJson($chardump),
             'granted' => 0,
             'status' => 0,
             'charactername' => $characterdata["main"]["name"],
@@ -247,452 +247,455 @@ public function insertTransfer($chardump)
 
         
         
-  public function ReadCharacterDump($data) {
-      
- 
-    $data = parse_ini_string($data);
-  
-  
-    $CharacterData = $data["CHDMP_DATA"] . $data["CHDMP_KEY"];
-
-    
-
-    $original = $this->decodecharacterdump($CharacterData); // two times base64 for json
-  
-    $chardata = [];
-    $newInventory = [];
-    $characterequippment = [];
-    $characterbags = [];
-
-    
-    //realign data in new arrays
-    $chardata["main"]["locale"] = $original["globalinfo"]["locale"];
-    $chardata["main"]["name"] = $original["unitinfo"]["name"];
-    $chardata["main"]["specs"] = $original["unitinfo"]["specs"];
-    $chardata["main"]["honor"] = $original["unitinfo"]["honor"];
-    $chardata["main"]["stats"] = $original["unitstats"];
-    $chardata["main"]["playtime"] = $original["unitinfo"]["playtime"];
-    $chardata["main"]["kills"] = $original["unitinfo"]["kills"];
-    $chardata["main"]["arenapoints"] = $original["unitinfo"]["arenapoints"];
-    $chardata["main"]["level"] = $original["unitinfo"]["level"];
-    $chardata["playtime"] =  $original["unitinfo"]["playtime"];
-
-   
-    switch ($original["unitinfo"]["class"])
-    {
-        case "WARRIOR":
-            $class = 1;
-            $spells = ["PLATE_MAIL", "MAIL", "BerserkerStance", "DefStance", "THROW_WAR", "TWO_H_SWORDS", "TWO_H_MACES", "TWO_H_AXES", "STAVES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES", "GUNS", "FIST_WEAPONS", "DAGGERS", "CROSSBOWS", "BOWS", "BLOCK"];
-        break;
-        case "PALADIN":
-            $class = 2;
-            $spells = ["PLATE_MAIL", "MAIL", "Redemption", "TWO_H_SWORDS", "TWO_H_MACES", "TWO_H_AXES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES", "BLOCK"];
-        break;
-        case "HUNTER":
-            $class = 3;
-            $spells = ["MAIL", "TameBeast", "FeedPet", "DismissPet", "CallPet", "RevivePet", "THROW_WAR", "TWO_H_SWORDS", "TWO_H_AXES", "STAVES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_AXES", "GUNS", "FIST_WEAPONS", "DAGGERS", "CROSSBOWS", "BOWS"];
-        break;
-        case "ROGUE":
-            $class = 4;
-            $spells = ["ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES", "GUNS", "FIST_WEAPONS", "DAGGERS", "CROSSBOWS", "BOWS"];
-        break;
-        case "PRIEST":
-            $class = 5;
-            $spells = ["WANDS", "STAVES", "SHOOT", "ONE_H_MACES", "DAGGERS"];
-        break;
-        case "DEATH_KNIGHT":
-            $class = 6;
-            $spells = ["PLATE_MAIL", "MAIL", "DeathGate", "Runeforging", "TWO_H_SWORDS", "TWO_H_MACES", "TWO_H_AXES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES"];
-        break;
-        case "SHAMAN":
-            $class = 7;
-            $spells = ["MAIL", "SearingTotem", "HealingStreamTotem", "StoneskinTotem", "TWO_H_MACES", "TWO_H_AXES", "STAVES", "ONE_H_MACES", "ONE_H_AXES", "FIST_WEAPONS", "DAGGERS", "BLOCK"];
-        break;
-        case "MAGE":
-            $class = 8;
-            $spells = ["PolyMorphPig", "TelePortDalaran", "WANDS", "STAVES", "SHOOT", "ONE_H_SWORDS", "DAGGERS"];
-        break;
-        case "WARLOCK":
-            $class = 9;
-            $spells = ["Imp", "Voidwalker", "Succubus", "Felhunter", "WANDS", "STAVES", "SHOOT", "ONE_H_SWORDS", "DAGGERS"];
-        break;
-        case "DRUID":
-            $class = 11;
-            $spells = ["BearForm", "AquaticForm", "SwiftFlightForm", "TWO_H_MACES", "STAVES", "POLEARMS", "ONE_H_MACES", "FIST_WEAPONS", "DAGGERS"];
-        break;
-        default:
-            $class = 0;
-            $spells = [];
-        break;
-    }
-   
-    $newspells = [];
-    foreach ($spells as $spellName)
-    {
-        $newspells[] = $this->spelldata[$spellName];
-    }
-    $chardata["newspells"] = $newspells;
-    $chardata["main"]["class"] = $class;
-    
-
-
-    switch ($original["unitinfo"]["race"])
-    {
-        case "Human":
-            $race = 1;
-        break;
-        case "Orc":
-            $race = 2;
-        break;
-        case "Dwarf":
-            $race = 3;
-        break;
-        case "Night Elf":
-            $race = 4;
-        break;
-        case "Undead":
-            $race = 5;
-        break;
-        case "Tauren":
-            $race = 6;
-        break;
-        case "Gnome":
-            $race = 7;
-        break;
-        case "Troll":
-            $race = 8;
-        break;
-        case "Blood Elf":
-            $race = 10;
-        break;
-        case "Draenei":
-            $race = 11;
-        break;
-        default:
-            $race = 0;
-        break;
-    }
-    $chardata["main"]["race"] = $race;
-
-
-    //genders are in wow lua from 1 to 2, and in azerothcore or similar 0 to 1 , its also possible to use $gender = $gender -1 or smth
-    switch ($original["unitinfo"]["gender"])
-    {
-        case 1:
-            $gender = 0;
-        break;
-        case 2:
-            $gender = 1;
-
-        default:
-            $gender = 0;
-        break;
-    }
-    $chardata["main"]["gender"] = $gender;
-    $chardata["main"]["ServerIP"] = $original["globalinfo"]["realmlist"];
-    $chardata["main"]["ServerRealm"] = $original["globalinfo"]["realm"];
-
-    $chardata["skills"] = $original["skills"];
-    $chardata["glyphs"] = $original["glyphs"];
-
-    foreach ($original["inventory"] as $key => $item)
-    {
-        // Extract the bag ID and slot from the key
-        list($bagId, $slot) = explode(':', $key);
-
-        // Check the range of bag IDs and add the item to the respective array
-        if ($bagId >= '0000' && $bagId <= '0135')
-        {
-            // Add the item to the character equipment array
-            $characterequippment[$slot] = ['ID' => $item['I'], 'Count' => $item['C'], 'G1' => $item['G1'], 'G2' => $item['G2'], 'G3' => $item['G3'], 'Q' => $item['Quality'], 'E' => $item['E']
-
-            ];
+        public function ReturnCharDumpAsJson($data) {
+            $data = parse_ini_string($data);
+            $CharacterData = $data["CHDMP_DATA"] . $data["CHDMP_KEY"];
+            return json_encode($this->decodecharacterdump($CharacterData),true);
         }
-        else
-        {
-            // Create the bag if it doesn't exist in the new inventory array
-            if (!isset($newInventory[$bagId]))
-            {
-                $newInventory[$bagId] = [];
-            }
 
-            // Add the item to the bag in the new inventory array
-            $newInventory[$bagId][$slot] = ['ID' => $item['I'], 'Count' => $item['C'], 'G1' => $item['G1'], 'G2' => $item['G2'], 'G3' => $item['G3'], 'Q' => $item['Quality'], 'E' => $item['E']];
-        }
-    }
-     $mounts = array();
-     $pets = array();
-    foreach ($original["creature"] as $key => $value)
-    {
-        if (substr($key, 0, 1) === 'M')
-        {
-            $mounts[] = $value;
-        }
-        elseif (substr($key, 0, 1) === 'C')
-        {
-            $pets[] = $value;
-        }
-    }
-    ksort($characterequippment);
-    $chardata["Inventory"] = $newInventory;
-    $chardata["Equippment"] = $characterequippment;
-    $chardata["mounts"] = $mounts;
-    $chardata["pets"] = $pets;
-   
-    
-    
-    $equipment = ['Head' => isset($chardata["Equippment"][1]["ID"]) ? $chardata["Equippment"][1]["ID"] : '0', 'Neck' => isset($chardata["Equippment"][2]["ID"]) ? $chardata["Equippment"][2]["ID"] : '0', 'Shoulder' => isset($chardata["Equippment"][3]["ID"]) ? $chardata["Equippment"][3]["ID"] : '0', 'Shirt' => isset($chardata["Equippment"][4]["ID"]) ? $chardata["Equippment"][4]["ID"] : '0', 'Chest' => isset($chardata["Equippment"][5]["ID"]) ? $chardata["Equippment"][5]["ID"] : '0', 'Waist' => isset($chardata["Equippment"][6]["ID"]) ? $chardata["Equippment"][6]["ID"] : '0', 'Legs' => isset($chardata["Equippment"][7]["ID"]) ? $chardata["Equippment"][7]["ID"] : '0', 'Feet' => isset($chardata["Equippment"][8]["ID"]) ? $chardata["Equippment"][8]["ID"] : '0', 'Wrist' => isset($chardata["Equippment"][9]["ID"]) ? $chardata["Equippment"][9]["ID"] : '0', 'Hands' => isset($chardata["Equippment"][10]["ID"]) ? $chardata["Equippment"][10]["ID"] : '0', 'Finger1' => isset($chardata["Equippment"][11]["ID"]) ? $chardata["Equippment"][11]["ID"] : '0', 'Finger2' => isset($chardata["Equippment"][12]["ID"]) ? $chardata["Equippment"][12]["ID"] : '0', 'Trinket1' => isset($chardata["Equippment"][13]["ID"]) ? $chardata["Equippment"][13]["ID"] : '0', 'Trinket2' => isset($chardata["Equippment"][14]["ID"]) ? $chardata["Equippment"][14]["ID"] : '0', 'Back' => isset($chardata["Equippment"][15]["ID"]) ? $chardata["Equippment"][15]["ID"] : '0', 'Main hand' => isset($chardata["Equippment"][16]["ID"]) ? $chardata["Equippment"][16]["ID"] : '0', 'Off hand' => isset($chardata["Equippment"][17]["ID"]) ? $chardata["Equippment"][17]["ID"] : '0', 'Ranged' => isset($chardata["Equippment"][18]["ID"]) ? $chardata["Equippment"][18]["ID"] : '0', 'Tabard' => isset($chardata["Equippment"][19]["ID"]) ? $chardata["Equippment"][19]["ID"] : '0', 'Bag1' => '0', 'Bag2' => '0', 'Bag3' => '0', 'Bag4' => '0', ];
-
-    $equipmentCache = "";
-    
-    //generate the equipment cache so char is not naked on first sight on login screen not neccessary but work great
-    foreach ($equipment as $item)
-    {
-        $equipmentCache .= $item . ' 0 '; // Adds Item ID and appends '0' for Appearance Mod ID and Item Enchant Aura ID.
+        public function convertSeconds($seconds) {
+            $days = floor($seconds / 86400);
+            $hours = floor(($seconds % 86400) / 3600);
+            $minutes = floor(($seconds % 3600) / 60);
+          
         
-    }
-
-    $chardata["equipmentCache"] = trim($equipmentCache); // Removes trailing space
-    
-    $chardata["achievements"] = $original["achiev"];
-   
-    $currency = array();
-
-    foreach ($original["currency"] as $item)
-    {
-        if ($item['I'] != 0 && $item['C'] != 0)
-        {
-            $currency[] = ['I' => $item['I'], 'C' => $item['C'], ];
+            return "$days days, $hours hours, $minutes minutes";
         }
-    }
-
-    $chardata["currency"] = $currency;
-
-    $skills = array();
-    $professions = array(
-        "main" => array() ,
-        "secondary" => array()
-    );
-
-    $profmain = array(
-        2259 => "Alchemy",
-        2018 => "Blacksmithing",
-        7411 => "Enchanting",
-        4036 => "Engineering",
-        2366 => "Herb Gathering",
-        45357 => "Inscription",
-        25229 => "Jewelcrafting",
-        2108 => "Leatherworking",
-        8613 => "Skinning",
-        3908 => "Tailoring",
-    );
-
-    $profsec = array(
-        45542 => "First Aid",
-        65293 => "Fishing",
-        51296 => "Cooking",
-    );
-
-    $other = array(
-        // English
-        "Fishing" => 51294,
-        "First Aid" => 7924,
-        "Riding" => 34090,
-        // German
-        "Angeln" => 51294,
-        "Erste Hilfe" => 7924,
-        "Reiten" => 34090,
-        // French
-        "Pêche" => 51294,
-        "Secourisme" => 7924,
-        "Monte" => 34090,
-        // Spanish
-        "Pesca" => 51294,
-        "Primeros auxilios" => 7924,
-        "Equitación" => 34090,
-        // Russian
-        "Рыбная ловля" => 51294,
-        "Первая помощь" => 7924,
-        "Верховая езда" => 34090,
-    );
-
-    foreach ($original["skills"] as $skill)
-    {
-        if (isset($skill["S"]))
-        {
-            // Check if the skill is in profmain or profsec and add them to professions
-            if (isset($profmain[$skill['S']]))
+        public function ReadCharacterDump($data) { 
+            $chardata = [];
+            $newInventory = [];
+            $characterequippment = [];
+            $chardata["main"] = [];
+        
+            
+            //realign data in new arrays
+            $chardata["main"]["locale"] = $data["globalinfo"]["locale"];
+            $chardata["main"]["name"] = $data["unitinfo"]["name"];
+            $chardata["main"]["specs"] = $data["unitinfo"]["specs"];
+            $chardata["main"]["honor"] = $data["unitinfo"]["honor"];
+            $chardata["main"]["stats"] = $data["unitstats"];
+            $chardata["main"]["playtime"] = $this->convertSeconds($data["unitinfo"]["playtime"]);
+            $chardata["main"]["kills"] = $data["unitinfo"]["kills"];
+            $chardata["main"]["arenapoints"] = $data["unitinfo"]["arenapoints"];
+            $chardata["main"]["level"] = $data["unitinfo"]["level"];
+            
+        
+           
+            switch ($data["unitinfo"]["class"])
             {
-                $professions['main'][] = array(
-                    'Current' => $skill['C'],
-                    'Max' => $skill['M'],
-                    'Link' => '<a  data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
-                );
+                case "WARRIOR":
+                    $class = 1;
+                    $spells = ["PLATE_MAIL", "MAIL", "BerserkerStance", "DefStance", "THROW_WAR", "TWO_H_SWORDS", "TWO_H_MACES", "TWO_H_AXES", "STAVES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES", "GUNS", "FIST_WEAPONS", "DAGGERS", "CROSSBOWS", "BOWS", "BLOCK"];
+                break;
+                case "PALADIN":
+                    $class = 2;
+                    $spells = ["PLATE_MAIL", "MAIL", "Redemption", "TWO_H_SWORDS", "TWO_H_MACES", "TWO_H_AXES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES", "BLOCK"];
+                break;
+                case "HUNTER":
+                    $class = 3;
+                    $spells = ["MAIL", "TameBeast", "FeedPet", "DismissPet", "CallPet", "RevivePet", "THROW_WAR", "TWO_H_SWORDS", "TWO_H_AXES", "STAVES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_AXES", "GUNS", "FIST_WEAPONS", "DAGGERS", "CROSSBOWS", "BOWS"];
+                break;
+                case "ROGUE":
+                    $class = 4;
+                    $spells = ["ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES", "GUNS", "FIST_WEAPONS", "DAGGERS", "CROSSBOWS", "BOWS"];
+                break;
+                case "PRIEST":
+                    $class = 5;
+                    $spells = ["WANDS", "STAVES", "SHOOT", "ONE_H_MACES", "DAGGERS"];
+                break;
+                case "DEATH_KNIGHT":
+                    $class = 6;
+                    $spells = ["PLATE_MAIL", "MAIL", "DeathGate", "Runeforging", "TWO_H_SWORDS", "TWO_H_MACES", "TWO_H_AXES", "POLEARMS", "ONE_H_SWORDS", "ONE_H_MACES", "ONE_H_AXES"];
+                break;
+                case "SHAMAN":
+                    $class = 7;
+                    $spells = ["MAIL", "SearingTotem", "HealingStreamTotem", "StoneskinTotem", "TWO_H_MACES", "TWO_H_AXES", "STAVES", "ONE_H_MACES", "ONE_H_AXES", "FIST_WEAPONS", "DAGGERS", "BLOCK"];
+                break;
+                case "MAGE":
+                    $class = 8;
+                    $spells = ["PolyMorphPig", "TelePortDalaran", "WANDS", "STAVES", "SHOOT", "ONE_H_SWORDS", "DAGGERS"];
+                break;
+                case "WARLOCK":
+                    $class = 9;
+                    $spells = ["Imp", "Voidwalker", "Succubus", "Felhunter", "WANDS", "STAVES", "SHOOT", "ONE_H_SWORDS", "DAGGERS"];
+                break;
+                case "DRUID":
+                    $class = 11;
+                    $spells = ["BearForm", "AquaticForm", "SwiftFlightForm", "TWO_H_MACES", "STAVES", "POLEARMS", "ONE_H_MACES", "FIST_WEAPONS", "DAGGERS"];
+                break;
+                default:
+                    $class = 0;
+                    $spells = [];
+                break;
             }
-            elseif (isset($profsec[$skill['S']]))
+           
+            $newspells = [];
+            foreach ($spells as $spellName)
             {
-                $professions['secondary'][] = array(
-                    'Current' => $skill['C'],
-                    'Max' => $skill['M'],
-                    'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
-                );
-
+                $newspells[] = $this->spelldata[$spellName];
             }
-        }
-        else
-        {
-            if (isset($other[$skill['N']]))
+            $chardata["newspells"] = $newspells;
+            $chardata["main"]["class"] = $class;
+            
+        
+        
+            switch ($data["unitinfo"]["race"])
             {
-                $professions['other'][] = array(
-                    'Name' => $skill['N'],
-                    'Current' => $skill['C'],
-                    'Max' => $skill['M'],
-                    'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $other[$skill['N']] . '"></a>'
-                );
+                case "Human":
+                    $race = 1;
+                break;
+                case "Orc":
+                    $race = 2;
+                break;
+                case "Dwarf":
+                    $race = 3;
+                break;
+                case "Night Elf":
+                    $race = 4;
+                break;
+                case "Undead":
+                    $race = 5;
+                break;
+                case "Tauren":
+                    $race = 6;
+                break;
+                case "Gnome":
+                    $race = 7;
+                break;
+                case "Troll":
+                    $race = 8;
+                break;
+                case "Blood Elf":
+                    $race = 10;
+                break;
+                case "Draenei":
+                    $race = 11;
+                break;
+                default:
+                    $race = 0;
+                break;
             }
-        }
-
-    }
-    
-    $talentPoints = array(
-        "highesttab" => "",
-        1 => 0,
-        2 => 0,
-        3 => 0
-    );
-    $highestTab = 0;
-    $highestPoints = 0;
-    
-   
-    
-    foreach ($original["talents"][0] as $talentTab)
-    {
-        foreach ($talentTab['talents'] as $talent)
-        {
-            $talentPoints[$talent['tab']] += $talent['currentRank'];
-            // check if current tab has more points than highest so far
-            if ($talentPoints[$talent['tab']] > $highestPoints)
+            $chardata["main"]["race"] = $race;
+        
+        
+            //genders are in wow lua from 1 to 2, and in azerothcore or similar 0 to 1 , its also possible to use $gender = $gender -1 or smth
+            switch ($data["unitinfo"]["gender"])
             {
-                $highestPoints = $talentPoints[$talent['tab']];
-                $highestTab = $talent['tab'];
-                $talentPoints['highesttab'] = $talentTab['icon'];
-                $talentPoints['highestTabName'] = $talentTab['name'];
+                case 1:
+                    $gender = 0;
+                break;
+                case 2:
+                    $gender = 1;
+        
+                default:
+                    $gender = 0;
+                break;
             }
-        }
-    }
-    $talentPointsTwo = array(
-        "highestTabTwo" => "",
-        1 => 0,
-        2 => 0,
-        3 => 0
-    );
-    $highestTabTwo = 0;
-    $highestPointsTwo = 0;
-
-    foreach ($original["talents"][1] as $talentTab)
-    {
-        foreach ($talentTab['talents'] as $talent)
-        {
-            $talentPointsTwo[$talent['tab']] += $talent['currentRank'];
-            // check if current tab has more points than highest so far
-            if ($talentPointsTwo[$talent['tab']] > $highestPointsTwo)
+            $chardata["main"]["gender"] = $gender;
+            $chardata["main"]["ServerIP"] = $data["globalinfo"]["realmlist"];
+            $chardata["main"]["ServerRealm"] = $data["globalinfo"]["realm"];
+        
+            $chardata["skills"] = $data["skills"];
+            $chardata["glyphs"] = $data["glyphs"];
+        
+            foreach ($data["inventory"] as $key => $item)
             {
-                $highestPointsTwo = $talentPointsTwo[$talent['tab']];
-                $highestTabTwo = $talent['tab'];
-                $talentPointsTwo['highestTabTwo'] = $talentTab['icon'];
-                $talentPointsTwo['highestTabName'] = $talentTab['name'];
-            }
-        }
-    }
-
-    $newmoney = array();
-    $money = $original["unitinfo"]["money"];
-    $gold = floor($money / 10000);
-    $remainder = $money % 10000;
-
-    $silver = floor($remainder / 100);
-    $copper = $remainder % 100;
-
-    $newmoney = ['gold' => $gold, 'silver' => $silver, 'copper' => $copper];
-
-    $chardata["main"]["money"] = $newmoney;
-
-    $chardata["talenttree"][1] = $talentPoints;
-    $chardata["talenttree"][2] = $talentPointsTwo;
-
-    $ranks = '';
-    $specmask = array();
-    foreach ($original['talents'][0] as $index => $talent)
-    {
-        if (is_numeric($index))
-        {
-            foreach ($talent as $talentfurther)
-            {
-                if (is_array($talentfurther))
+                // Extract the bag ID and slot from the key
+                list($bagId, $slot) = explode(':', $key);
+        
+                // Check the range of bag IDs and add the item to the respective array
+                if ($bagId >= '0000' && $bagId <= '0135')
                 {
-                    foreach ($talentfurther as $talentspell)
+                    // Add the item to the character equipment array
+                    $characterequippment[$slot] = ['ID' => $item['I'], 'Count' => $item['C'], 'G1' => $item['G1'], 'G2' => $item['G2'], 'G3' => $item['G3'], 'Q' => $item['Quality'], 'E' => $item['E']
+        
+                    ];
+                }
+                else
+                {
+                    // Create the bag if it doesn't exist in the new inventory array
+                    if (!isset($newInventory[$bagId]))
                     {
-                        if (isset($talentspell['currentRank']))
-                        {
-                            $ranks .= $talentspell['currentRank'];
-                            if($talentspell['currentRank'] >= 1){
-                            $talendID = $talentspell['talentID'];
-                            $actualspell = $this->talentspells[$talendID]["ranks"][$talentspell['currentRank']];
-                            $specmask[0][] = $actualspell;
-
-                            }
-                            
-                        }
+                        $newInventory[$bagId] = [];
+                    }
+        
+                    // Add the item to the bag in the new inventory array
+                    $newInventory[$bagId][$slot] = ['ID' => $item['I'], 'Count' => $item['C'], 'G1' => $item['G1'], 'G2' => $item['G2'], 'G3' => $item['G3'], 'Q' => $item['Quality'], 'E' => $item['E']];
+                }
+            }
+             $mounts = array();
+             $pets = array();
+            foreach ($data["creature"] as $key => $value)
+            {
+                if (substr($key, 0, 1) === 'M')
+                {
+                    $mounts[] = $value;
+                }
+                elseif (substr($key, 0, 1) === 'C')
+                {
+                    $pets[] = $value;
+                }
+            }
+            ksort($characterequippment);
+            $chardata["Inventory"] = $newInventory;
+            $chardata["Equippment"] = $characterequippment;
+            $chardata["mounts"] = $mounts;
+            $chardata["pets"] = $pets;
+           
+            
+            
+            $equipment = ['Head' => isset($chardata["Equippment"][1]["ID"]) ? $chardata["Equippment"][1]["ID"] : '0', 'Neck' => isset($chardata["Equippment"][2]["ID"]) ? $chardata["Equippment"][2]["ID"] : '0', 'Shoulder' => isset($chardata["Equippment"][3]["ID"]) ? $chardata["Equippment"][3]["ID"] : '0', 'Shirt' => isset($chardata["Equippment"][4]["ID"]) ? $chardata["Equippment"][4]["ID"] : '0', 'Chest' => isset($chardata["Equippment"][5]["ID"]) ? $chardata["Equippment"][5]["ID"] : '0', 'Waist' => isset($chardata["Equippment"][6]["ID"]) ? $chardata["Equippment"][6]["ID"] : '0', 'Legs' => isset($chardata["Equippment"][7]["ID"]) ? $chardata["Equippment"][7]["ID"] : '0', 'Feet' => isset($chardata["Equippment"][8]["ID"]) ? $chardata["Equippment"][8]["ID"] : '0', 'Wrist' => isset($chardata["Equippment"][9]["ID"]) ? $chardata["Equippment"][9]["ID"] : '0', 'Hands' => isset($chardata["Equippment"][10]["ID"]) ? $chardata["Equippment"][10]["ID"] : '0', 'Finger1' => isset($chardata["Equippment"][11]["ID"]) ? $chardata["Equippment"][11]["ID"] : '0', 'Finger2' => isset($chardata["Equippment"][12]["ID"]) ? $chardata["Equippment"][12]["ID"] : '0', 'Trinket1' => isset($chardata["Equippment"][13]["ID"]) ? $chardata["Equippment"][13]["ID"] : '0', 'Trinket2' => isset($chardata["Equippment"][14]["ID"]) ? $chardata["Equippment"][14]["ID"] : '0', 'Back' => isset($chardata["Equippment"][15]["ID"]) ? $chardata["Equippment"][15]["ID"] : '0', 'Main hand' => isset($chardata["Equippment"][16]["ID"]) ? $chardata["Equippment"][16]["ID"] : '0', 'Off hand' => isset($chardata["Equippment"][17]["ID"]) ? $chardata["Equippment"][17]["ID"] : '0', 'Ranged' => isset($chardata["Equippment"][18]["ID"]) ? $chardata["Equippment"][18]["ID"] : '0', 'Tabard' => isset($chardata["Equippment"][19]["ID"]) ? $chardata["Equippment"][19]["ID"] : '0', 'Bag1' => '0', 'Bag2' => '0', 'Bag3' => '0', 'Bag4' => '0', ];
+        
+            $equipmentCache = "";
+            
+            //generate the equipment cache so char is not naked on first sight on login screen not neccessary but work great
+            foreach ($equipment as $item)
+            {
+                $equipmentCache .= $item . ' 0 '; // Adds Item ID and appends '0' for Appearance Mod ID and Item Enchant Aura ID.
+                
+            }
+        
+            $chardata["equipmentCache"] = trim($equipmentCache); // Removes trailing space
+            
+            $chardata["achievements"] = $data["achiev"];
+           
+            $currency = array();
+        
+            foreach ($data["currency"] as $item)
+            {
+                if ($item['I'] != 0 && $item['C'] != 0)
+                {
+                    $currency[] = ['I' => $item['I'], 'C' => $item['C'], ];
+                }
+            }
+        
+            $chardata["currency"] = $currency;
+        
+            $skills = array();
+            $professions = array(
+                "main" => array() ,
+                "secondary" => array()
+            );
+        
+            $profmain = array(
+                2259 => "Alchemy",
+                2018 => "Blacksmithing",
+                7411 => "Enchanting",
+                4036 => "Engineering",
+                2366 => "Herb Gathering",
+                45357 => "Inscription",
+                25229 => "Jewelcrafting",
+                2108 => "Leatherworking",
+                8613 => "Skinning",
+                3908 => "Tailoring",
+            );
+        
+            $profsec = array(
+                45542 => "First Aid",
+                65293 => "Fishing",
+                51296 => "Cooking",
+            );
+        
+            $other = array(
+                // English
+                "Fishing" => 51294,
+                "First Aid" => 7924,
+                "Riding" => 34090,
+                // German
+                "Angeln" => 51294,
+                "Erste Hilfe" => 7924,
+                "Reiten" => 34090,
+                // French
+                "Pêche" => 51294,
+                "Secourisme" => 7924,
+                "Monte" => 34090,
+                // Spanish
+                "Pesca" => 51294,
+                "Primeros auxilios" => 7924,
+                "Equitación" => 34090,
+                // Russian
+                "Рыбная ловля" => 51294,
+                "Первая помощь" => 7924,
+                "Верховая езда" => 34090,
+            );
+        
+            foreach ($data["skills"] as $skill)
+            {
+                if (isset($skill["S"]))
+                {
+                    // Check if the skill is in profmain or profsec and add them to professions
+                    if (isset($profmain[$skill['S']]))
+                    {
+                        $professions['main'][] = array(
+                            'Current' => $skill['C'],
+                            'Max' => $skill['M'],
+                            'Link' => '<a  data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
+                        );
+                    }
+                    elseif (isset($profsec[$skill['S']]))
+                    {
+                        $professions['secondary'][] = array(
+                            'Current' => $skill['C'],
+                            'Max' => $skill['M'],
+                            'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $skill['S'] . '"></a>'
+                        );
+        
+                    }
+                }
+                else
+                {
+                    if (isset($other[$skill['N']]))
+                    {
+                        $professions['other'][] = array(
+                            'Name' => $skill['N'],
+                            'Current' => $skill['C'],
+                            'Max' => $skill['M'],
+                            'Link' => '<a data-wh-rename-link="true" data-wh-icon-size="tiny" href="https://www.wowhead.com/wotlk/de/spell=' . $other[$skill['N']] . '"></a>'
+                        );
+                    }
+                }
+        
+            }
+            
+            $talentPoints = array(
+                "highesttab" => "",
+                1 => 0,
+                2 => 0,
+                3 => 0
+            );
+            $highestTab = 0;
+            $highestPoints = 0;
+            
+           
+            
+            foreach ($data["talents"][0] as $talentTab)
+            {
+                foreach ($talentTab['talents'] as $talent)
+                {
+                    $talentPoints[$talent['tab']] += $talent['currentRank'];
+                    // check if current tab has more points than highest so far
+                    if ($talentPoints[$talent['tab']] > $highestPoints)
+                    {
+                        $highestPoints = $talentPoints[$talent['tab']];
+                        $highestTab = $talent['tab'];
+                        $talentPoints['highesttab'] = $talentTab['icon'];
+                        $talentPoints['highestTabName'] = $talentTab['name'];
                     }
                 }
             }
-            $ranks .= "-";
-        }
-    }
-    $ranks = rtrim($ranks, '-');
-
-    $ranks2 = '';
-    foreach ($original['talents'][1] as $index => $talent)
-    {
-        if (is_numeric($index))
-        {
-            foreach ($talent as $talentfurther)
+            $talentPointsTwo = array(
+                "highestTabTwo" => "",
+                1 => 0,
+                2 => 0,
+                3 => 0
+            );
+            $highestTabTwo = 0;
+            $highestPointsTwo = 0;
+        
+            foreach ($data["talents"][1] as $talentTab)
             {
-                if (is_array($talentfurther))
+                foreach ($talentTab['talents'] as $talent)
                 {
-                    foreach ($talentfurther as $talentspell)
+                    $talentPointsTwo[$talent['tab']] += $talent['currentRank'];
+                    // check if current tab has more points than highest so far
+                    if ($talentPointsTwo[$talent['tab']] > $highestPointsTwo)
                     {
-                        if (isset($talentspell['currentRank']))
-                        {
-                            $ranks2 .= $talentspell['currentRank'];
-                             if($talentspell['currentRank'] >= 1){
-                            $talendID = $talentspell['talentID'];
-                           $actualspell = $this->talentspells[$talendID]["ranks"][$talentspell['currentRank']];
-                            $specmask[1][] = $actualspell;
-                            }
-                        }
+                        $highestPointsTwo = $talentPointsTwo[$talent['tab']];
+                        $highestTabTwo = $talent['tab'];
+                        $talentPointsTwo['highestTabTwo'] = $talentTab['icon'];
+                        $talentPointsTwo['highestTabName'] = $talentTab['name'];
                     }
                 }
             }
-            $ranks2 .= "-";
+        
+            $newmoney = array();
+            $money = $data["unitinfo"]["money"];
+            $gold = floor($money / 10000);
+            $remainder = $money % 10000;
+        
+            $silver = floor($remainder / 100);
+            $copper = $remainder % 100;
+        
+            $newmoney = ['gold' => $gold, 'silver' => $silver, 'copper' => $copper];
+        
+            $chardata["main"]["money"] = $newmoney;
+        
+            $chardata["talenttree"][1] = $talentPoints;
+            $chardata["talenttree"][2] = $talentPointsTwo;
+        
+            $ranks = '';
+            $specmask = array();
+            foreach ($data['talents'][0] as $index => $talent)
+            {
+                if (is_numeric($index))
+                {
+                    foreach ($talent as $talentfurther)
+                    {
+                        if (is_array($talentfurther))
+                        {
+                            foreach ($talentfurther as $talentspell)
+                            {
+                                if (isset($talentspell['currentRank']))
+                                {
+                                    $ranks .= $talentspell['currentRank'];
+                                    if($talentspell['currentRank'] >= 1){
+                                    $talendID = $talentspell['talentID'];
+                                    $actualspell = $this->talentspells[$talendID]["ranks"][$talentspell['currentRank']];
+                                    $specmask[0][] = $actualspell;
+        
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                    $ranks .= "-";
+                }
+            }
+            $ranks = rtrim($ranks, '-');
+        
+            $ranks2 = '';
+            foreach ($data['talents'][1] as $index => $talent)
+            {
+                if (is_numeric($index))
+                {
+                    foreach ($talent as $talentfurther)
+                    {
+                        if (is_array($talentfurther))
+                        {
+                            foreach ($talentfurther as $talentspell)
+                            {
+                                if (isset($talentspell['currentRank']))
+                                {
+                                    $ranks2 .= $talentspell['currentRank'];
+                                     if($talentspell['currentRank'] >= 1){
+                                    $talendID = $talentspell['talentID'];
+                                   $actualspell = $this->talentspells[$talendID]["ranks"][$talentspell['currentRank']];
+                                    $specmask[1][] = $actualspell;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $ranks2 .= "-";
+                }
+            }
+            $ranks2 = rtrim($ranks2, '-');
+        
+            $chardata["specmask"] = $specmask;
+        
+            $chardata["skills"] = $skills;
+            $chardata["professions"] = $professions;
+        
+            $chardata["talenttree"][1]["link"] = $ranks;
+            $chardata["talenttree"][2]["link"] = $ranks2;
+        
+        
+            return $chardata;
         }
-    }
-    $ranks2 = rtrim($ranks2, '-');
-
-    $chardata["specmask"] = $specmask;
-
-    $chardata["skills"] = $skills;
-    $chardata["professions"] = $professions;
-
-    $chardata["talenttree"][1]["link"] = $ranks;
-    $chardata["talenttree"][2]["link"] = $ranks2;
-
-
-    return $chardata;
-}
 
 public function genCharDump($chardata) {
-    $chardata = getCharData($data);
+    
 $array = [
 'guid' => '999',
  'account' => '888',
