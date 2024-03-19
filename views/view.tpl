@@ -190,7 +190,7 @@
 
                       
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table name="currency" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Currency</th>
@@ -200,8 +200,8 @@
                             <tbody>
                                 {foreach $currency as $item}
                                 <tr>
-                                    <td>
-                                        <a class="item" data-wh-rename-link="true" data-wh-icon-size="small" href="https://www.wowhead.com/wotlk/de/item={$item.I}"></a>
+                                    <td type="currency">
+                                        <a class="item" data-wh-rename-link="true" data-item-id={$item.I} data-wh-icon-size="small" href="https://www.wowhead.com/wotlk/de/item={$item.I}"></a>
                                     </td>
                                     <td>
                                         <input type="number" name="item" min="0" class="form-control" value="{$item.C}">
@@ -211,10 +211,42 @@
                             </tbody>
                         </table>
                     </div>
-                    
-                    
+                    <button id="submitButton" class="btn btn-default">Check</button>
+                    <script>
+                    submitButton.addEventListener("click", function() {
+    // Define the items array inside the click event handler to reset it every time the button is clicked.
+    let items = [];
+    
+    let currencyTable = document.querySelector('table[name="currency"]');
+    currencyTable.querySelectorAll('tbody tr').forEach(tr => {
+        // Attempt to find the <a> element within the <td> of type 'currency'
+        let aElement = tr.querySelector('td[type="currency"] a');
+
+        // Attempt to find the <input> element
+        let inputElement = tr.querySelector('input[type="number"]');
+
+        // Check if both elements exist before proceeding
+        if (aElement && inputElement) {
+            // Since both elements exist, proceed to get their values
+            let itemId = aElement.getAttribute('data-item-id');
+            let itemValue = Number(inputElement.value); // Convert the value to a number just in case
+
+            // Push the item data into the items array
+            items.push({ id: itemId, count: itemValue });
+        } else {
+            // If either element does not exist, you could log a warning or handle it as needed
+            console.warn('One or more elements could not be found in a row.', tr);
+        }
+    });
+
+    // Do something with the items array here, like sending it to a server or logging it
+    console.log(items);
+});
+
+                    </script>
                     </tbody>
-             
+
+              
             </div>
         </div>
         <div class="tab-pane fade" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
