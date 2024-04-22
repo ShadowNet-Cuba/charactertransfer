@@ -161,7 +161,10 @@ foreach ($scriptTags as $tag) {
     private function getInfo($id=false)
     {
        $data = $this->transfer_model->getTransferByID($id);
-       
+       if($data == false){
+           $this->getError();
+           return;
+       }
        $this->charData = $this->transfer_model->ReadCharacterDump($data[0]["chardump"]);
 
         // Load the items
@@ -282,11 +285,11 @@ public function view($id)
      */
     private function getError($get = false)
     {
-        $this->template->setTitle(lang("doesnt_exist", "character"));
+        $this->template->setTitle("Error");
 
         $data = array(
             "module" => "default",
-            "headline" => lang("doesnt_exist", "character"),
+            "headline" => "Character Does not Exists",
             "content" => "<center style='margin:10px;font-weight:bold;'>" . "nope" . "</center>"
         );
 
